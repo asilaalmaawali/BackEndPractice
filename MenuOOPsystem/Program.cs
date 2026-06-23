@@ -1,5 +1,7 @@
 ﻿using MenuOOPsystem.Models;
 using Microsoft.Win32;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -206,9 +208,29 @@ namespace MenuOOPsystem
         }
 
         static void ViewAllFlights()
-        { 
-        
-        
+        {
+
+            if (context.Flights.Count == 0)  // if there is no flight , there is nothing to view
+            {
+                Console.WriteLine("No flights found yet");
+                return;
+            }
+
+            Console.WriteLine("===== All Flights =====");
+
+            foreach (Flight f in context.Flights)
+            {
+
+              
+
+                Console.WriteLine($"ID: {f.flightId}  |  Flight Code: {f.flightCode}  |  origin: {f.origin}" +
+              $"  |  destination: {f.destination}  |  departure date: {f.departureDate}" +
+              $"  |   departure time: {f.departureTime}  |  available seats: {f.availableSeats}" +
+              $"  |  ticket price: {f.ticketPrice}|  current status: {f.status}");
+            }
+
+
+
         }
 
 

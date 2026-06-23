@@ -23,10 +23,10 @@ namespace MenuOOPsystem
         {
 
             Console.Write("Enter passenger name: ");
-            string Name = Console.ReadLine();
+            string Name = Console.ReadLine().Trim();  // It removes spaces from the beginning and end.
 
             Console.Write("Enter passenger email: ");
-            string email = Console.ReadLine();
+            string email = Console.ReadLine().Trim();
 
             if (!email.Contains("@"))   // email validation should contain @
             {
@@ -35,7 +35,7 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter passenger phone:");
-            string phone = Console.ReadLine();
+            string phone = Console.ReadLine().Trim();
 
             if (!phone.StartsWith("+968"))      // validation for phone
             {
@@ -44,7 +44,7 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter passport number: ");
-            string passport = Console.ReadLine();
+            string passport = Console.ReadLine().Trim();
 
             if (passport == "")
             {
@@ -62,7 +62,7 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter nationality: ");
-            string nationality = Console.ReadLine();
+            string nationality = Console.ReadLine().Trim();  
 
             if (nationality == "")
             {
@@ -70,8 +70,7 @@ namespace MenuOOPsystem
                 return;
             }
 
-            int passengerId = context.Passengers.Count + 1;
-
+            int passengerId = context.Passengers.Count + 1;     // // auto generated ID
 
             context.Passengers.Add(
 
@@ -93,7 +92,128 @@ namespace MenuOOPsystem
 
 
         }
-        static void Main(string[] args)
+
+        static void AddAircraft() {
+
+
+            /* Add an Aircraft : When the airline buys a new aircraft, we save its details like model and total seats.The aircraft will be operational by default, 
+             and the system gives it a new Aircraft ID.*/       
+
+            Console.Write("Enter aircraft model: ");   // ex : Boeing 737 , Airbus A320 
+            string model = Console.ReadLine().Trim();
+
+            if (model == "")
+            {
+                Console.WriteLine("Aircraft model cannot be empty");
+                return;
+            }
+
+            Console.Write("Enter total seats: ");
+            int totalSeats = int.Parse(Console.ReadLine().Trim());
+
+            if (totalSeats <= 0)   // if the total of seats less than zero it should appear this message
+            {
+                Console.WriteLine("Total seats must be greater than 0.");
+                return;
+            }
+
+            int aircraftId = context.Aircrafts.Count + 1;    // auto generated ID
+
+
+
+            context.Aircrafts.Add(
+            
+            new Aircraft
+            {
+
+                aircraftId = aircraftId,
+                model = model,
+                totalSeats = totalSeats,
+                isOperational = true // as default   , becuase When we add a new aircraft, it is available/ready for future flights by default.
+
+            });
+
+            Console.WriteLine("Aircraft added successfully");
+            Console.WriteLine("Aircraft Model :  "+ model + "  Total Seats: "+totalSeats +"  Assigned ID: " + aircraftId );  //output ex =>  Aircraft Model :  Boeing 737  Total Seats: 10  Assigned ID: 1 
+
+        }
+
+        static void RegisterPilot()
+        {
+
+            Console.Write("Enter pilot name: ");
+            string name = Console.ReadLine().Trim();
+
+            if (name == "")
+            {
+                Console.WriteLine("pilot name cannot be empty");
+                return;
+            }
+            Console.Write("Enter pilot phone: ");
+            string phone = Console.ReadLine().Trim();
+
+            if (!phone.StartsWith("+968"))      // validation for phone
+            {
+                Console.WriteLine("Invalid phone number. Please re-type phone must start with +968");
+                return;
+            }
+
+
+            Console.Write("Enter license number: ");
+            string licenseNumber = Console.ReadLine().Trim();
+
+            if (licenseNumber == "")
+            {
+                Console.WriteLine("license number cannot be empty");
+                return;
+            }
+
+            Console.Write("Enter flight hours: ");
+            int flightHours = int.Parse(Console.ReadLine());
+
+            if (licenseNumber == "")
+            {
+                Console.WriteLine("flight hours cannot be empty");
+                return;
+            }
+
+            if (flightHours < 0)  // the hours cannot be negative
+            {
+                Console.WriteLine("Flight hours cannot be negative.");
+                return;
+            }
+
+
+            int pilotId = context.Pilots.Count + 1;  // auto generated ID
+
+            context.Pilots.Add(
+
+                new Pilot {
+
+                    pilotId = pilotId,
+                    pilotName = name,
+                    pilotPhone = phone,
+                    licenseNumber = licenseNumber,
+                    flightHours = flightHours,
+                    isAvailable = true      // as default because the pilot is free and ready to be assigned to a flight. they are not assigned to any flight yet.
+                }
+
+                );
+
+
+            Console.WriteLine("Pilot registered successfully. Pilot ID:  " + pilotId);
+             
+        }
+
+        static void ViewAllFlights()
+        { 
+        
+        
+        }
+
+
+
+            static void Main(string[] args)
         {
 
 
@@ -124,10 +244,13 @@ namespace MenuOOPsystem
                         RegisterPassenger();
                          break;
                     case 2:
+                        AddAircraft();
                         break;
                     case 3:
+                        RegisterPilot();
                         break;
-                    case 4: 
+                    case 4:
+                        ViewAllFlights();
                         break;
                     case 5: 
                         break;

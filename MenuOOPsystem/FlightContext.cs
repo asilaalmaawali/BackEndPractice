@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MenuOOPsystem
 {
-    internal class FlightContext
+    internal class FlightContext         // declare and store alllist here
     {
 
         public List<Passenger> Passengers { get; set; }

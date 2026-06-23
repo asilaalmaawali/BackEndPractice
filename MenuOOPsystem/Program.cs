@@ -221,21 +221,138 @@ namespace MenuOOPsystem
             foreach (Flight f in context.Flights)
             {
 
-              
+                Console.WriteLine("                                    ");
+                Console.WriteLine("Flight Code: " + f.flightCode);
+                Console.WriteLine("Origin: " + f.origin);
+                Console.WriteLine("Destination: " + f.destination);
+                Console.WriteLine("Departure Date: " + f.departureDate);
+                Console.WriteLine("Departure Time: " + f.departureTime);
+                Console.WriteLine("Available Seats: " + f.availableSeats);
+                Console.WriteLine("Ticket Price: " + f.ticketPrice);
+                Console.WriteLine("Status: " + f.status);
 
-                Console.WriteLine($"ID: {f.flightId}  |  Flight Code: {f.flightCode}  |  origin: {f.origin}" +
-              $"  |  destination: {f.destination}  |  departure date: {f.departureDate}" +
-              $"  |   departure time: {f.departureTime}  |  available seats: {f.availableSeats}" +
-              $"  |  ticket price: {f.ticketPrice}|  current status: {f.status}");
             }
+        }
+
+        static void ScheduleFlight()
+        {
+            Console.Write("Enter aircraft ID: ");  
+            int aircraftId = int.Parse(Console.ReadLine());
+
+            Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.aircraftId == aircraftId);   // use FirstOrDefault because the whole object data is needed to be used in the upcoming steps
+
+            if (aircraft == null)
+            {
+
+                Console.WriteLine("aircraft not found");
+                return;
+
+            }
+
+            if (aircraft.isOperational == false)
+            {
+                Console.WriteLine("aircraft is not operational");
+                return;
+
+            }
+
+            Console.Write("Enter Pilot Id ID: ");
+            int pilotId = int.Parse(Console.ReadLine());
+
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == pilotId);  //Search inside the pilots list and get the pilot whose pilotId matches the entered pilotId
+
+            if (pilot == null)
+            {
+                Console.WriteLine("pilot not found");
+                return;
+            }
+
+            if (pilot.isAvailable == false)  // not available
+            {
+                Console.WriteLine("Pilot is not available");
+                return;
+            }
+
+            Console.Write("Enter origin: ");
+            string origin = Console.ReadLine().Trim();
+
+            if (origin == "")
+            {
+                Console.WriteLine("origin cannot be empty");
+                return;
+            }
+
+            Console.Write("Enter destination:  ");
+            string destination = Console.ReadLine().Trim();
+
+            if (destination == "")
+            {
+                Console.WriteLine("Destination cannot be empty");
+                return;
+            }
+
+            Console.Write("Enter departure date (dd/MM/yyyy):  ");
+            string departureDate = Console.ReadLine().Trim();
+
+            if (departureDate == "")
+            {
+                Console.WriteLine("Departure date cannot be empty");
+                return;
+            }
+
+            Console.Write("Enter departure time: ");
+            string departureTime = Console.ReadLine().Trim();
+
+            if (departureTime == "")
+            {
+                Console.WriteLine("Departure time cannot be empty.");
+                return;
+            }
+
+            Console.Write("Enter ticket price: ");
+            decimal ticketPrice = decimal.Parse(Console.ReadLine());
+
+            if (ticketPrice <= 0)   // the price should not be negative or equal zero
+            {
+                Console.WriteLine("Ticket price must be more than 0.");
+                return;
+            }
+
+            int flightId = context.Flights.Count + 1;  // auto ID generation
+
+            string flightCode = "OA-" + flightId;
+
+
+            context.Flights.Add(
+
+                new Flight
+                {
+                    flightId = flightId,
+                    flightCode = flightCode,
+                    aircraftId = aircraftId,
+                    pilotId = pilotId,
+                    origin = origin,
+                    destination = destination,
+                    departureDate = departureDate,
+                    departureTime = departureTime,
+                    ticketPrice = ticketPrice,
+                    availableSeats = aircraft.totalSeats,
+                    status = "Scheduled"         // as default because the flight is created but has not departed or cancelled yet
+                }
+
+                );
+
+            pilot.isAvailable = false;  //  pilot is assigned, not free
+
+            Console.WriteLine("Flight scheduled successfully.");
+            Console.WriteLine("Flight ID: " + flightId);
+            Console.WriteLine("Flight Code: " + flightCode);
 
 
 
         }
 
-
-
-            static void Main(string[] args)
+        static void Main(string[] args)
         {
 
 
@@ -274,7 +391,8 @@ namespace MenuOOPsystem
                     case 4:
                         ViewAllFlights();
                         break;
-                    case 5: 
+                    case 5:
+                        ScheduleFlight();
                         break;
                     case 6: 
                         break;
@@ -304,3 +422,4 @@ namespace MenuOOPsystem
         }
     }
 }
+

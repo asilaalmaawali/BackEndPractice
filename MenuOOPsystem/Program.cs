@@ -170,10 +170,10 @@ namespace MenuOOPsystem
                 return;
             }
 
-            Console.Write("Enter flight hours: ");
+            Console.Write("Enter flight hours: ");         // enter pilot’s old hours experience.
             int flightHours = int.Parse(Console.ReadLine());
 
-            if (licenseNumber == "")
+            if (flightHours == null)
             {
                 Console.WriteLine("flight hours cannot be empty");
                 return;
@@ -291,12 +291,18 @@ namespace MenuOOPsystem
                 return;
             }
 
-            Console.Write("Enter departure date (dd/MM/yyyy):  ");
+            Console.Write("Enter departure date (dd/MM/yyyy):  ");  // must be 10 Character , and the (/) be in same position of format 
             string departureDate = Console.ReadLine().Trim();
 
             if (departureDate == "")
             {
                 Console.WriteLine("Departure date cannot be empty");
+                return;
+            }
+
+            if (departureDate.Length != 10 || departureDate[2] != '/' || departureDate[5] != '/')  // (/) should be in same places
+            {
+                Console.WriteLine("Invalid date format. re-type in this format=> dd/MM/yyyy ex: 24/06/2026");
                 return;
             }
 
@@ -306,6 +312,13 @@ namespace MenuOOPsystem
             if (departureTime == "")
             {
                 Console.WriteLine("Departure time cannot be empty.");
+                return;
+            }
+
+            if (departureTime.Length != 5 || departureTime[2] != ':')  // the length should must be 5 Character if not will catch them, departureTime[2] != ':' => means the third character must be " : "
+
+            {
+                Console.WriteLine("Invalid time format. re-type in this format=> HH:mm ex: 09:30");
                 return;
             }
 
@@ -343,14 +356,109 @@ namespace MenuOOPsystem
                 );
 
             pilot.isAvailable = false;  //  pilot is assigned, not free
+           
 
             Console.WriteLine("Flight scheduled successfully.");
             Console.WriteLine("Flight ID: " + flightId);
             Console.WriteLine("Flight Code: " + flightCode);
 
+        }
+
+
+        static void BookFlight()
+        {
+
+            Console.WriteLine("Enter the Passenger ID");
+            int passengerID = int.Parse(Console.ReadLine());
+
+
+            Passenger passenger = context.Passengers.FirstOrDefault(p => p.passengerId == passengerID);  // check passenger exsits
+
+            if (passenger == null)
+            {
+                Console.WriteLine("Passenger not found.");
+                return;
+            }
+
+            Console.Write("Enter destination: ");   // ask for destination
+            string destination = Console.ReadLine().Trim();
+
+            if (destination == "")
+            {
+                Console.WriteLine("Destination cannot be empty.");
+                return;
+            }
+
+
+             // search for all flights and keep only the flights that the passenger can book.
+            List<Flight> availableFlights = context.Flights.Where(f => f.destination .ToLower() == destination.ToLower()   // the flight destination must match what the user typed.
+                                                            && f.status == "Scheduled"  // show only flights that are scheduled
+                                                            && f.availableSeats > 0)    // still have seats
+                                                            .ToList();  // save the matching flights in a list called availableFlights.
+
+            if (availableFlights.Count == 0)
+            {
+                Console.WriteLine("No scheduled flights available to this destination");
+                return;
+            }
+
+
+            Console.WriteLine("==Available Flights==");
+
+            foreach (Flight f in availableFlights)
+            {
+                Console.WriteLine($"ID: {f.flightId} | Flight Code: {f.flightCode} | Origin: {f.origin} | Destination: {f.destination} | Date: {f.departureDate} | Time: {f.departureTime} | Available Seats: {f.availableSeats} | Ticket Price: {f.ticketPrice}");
+            }
+
+
+
+            Console.WriteLine("Enter the Flight ID");
+
+
+            int flightID = int.Parse(Console.ReadLine());
+            Flight flight = availableFlights.FirstOrDefault(f => f.flightId == flightID);  /// to check it matched the user input and use it for another steps
+
+            if (flight == null)
+            {
+                Console.WriteLine("Invalid flight selection");
+                return;
+            }
+
+            int bookingId = context.Bookings.Count + 1;   // auto generated
+
+
+            string seatNumber = "S" + (flight.availableSeats);
+
+
+            context.Bookings.Add(
+
+                new Booking
+                { 
+                    bookingId = bookingId,
+                    passengerId=passengerID,
+                    flightId = flightID,
+                    seatNumber = seatNumber,     
+                    totalPrice = flight.ticketPrice,     // total price for the booking is taken from the flight's ticket price
+                    status = "confirmed"
+                
+                
+                
+                }
+
+
+                );
+
+           
+            flight.availableSeats--;  // the flight's available seat count decreases by one
+
+            Console.WriteLine("Booking created successfully");
+            Console.WriteLine("Booking ID: " + bookingId);
+            Console.WriteLine("Seat Number: " + seatNumber);
+            Console.WriteLine("Total Price: " + flight.ticketPrice);
 
 
         }
+
 
         static void Main(string[] args)
         {
@@ -394,7 +502,8 @@ namespace MenuOOPsystem
                     case 5:
                         ScheduleFlight();
                         break;
-                    case 6: 
+                    case 6:
+                        BookFlight();
                         break;
                     case 7: 
                         break;

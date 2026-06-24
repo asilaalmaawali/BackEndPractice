@@ -395,6 +395,7 @@ namespace MenuOOPsystem
                                                             && f.status == "Scheduled"  // show only flights that are scheduled
                                                             && f.availableSeats > 0)    // still have seats
                                                             .ToList();  // save the matching flights in a list called availableFlights.
+           
 
             if (availableFlights.Count == 0)
             {
@@ -423,6 +424,19 @@ namespace MenuOOPsystem
                 Console.WriteLine("Invalid flight selection");
                 return;
             }
+
+            // to check that passenger cannot booked again same flight , ex: passenger ID try to booked two time same Flight Id the booking will be duplicated. 
+            Booking existingBooking = context.Bookings.FirstOrDefault(b =>
+                                     b.passengerId == passengerID &&
+                                     b.flightId == flightID &&
+                                     b.status == "Confirmed");
+            //if this passenger already has a confirmed booking for this flight, stop and do not book again.
+            if (existingBooking != null)  
+            {
+                Console.WriteLine("This passenger already booked this flight.");
+                return;
+            }
+
 
             if (flight.availableSeats <= 0)   //before creating booking i need to check if there is a available seats.
             {
@@ -503,12 +517,56 @@ namespace MenuOOPsystem
 
         }
 
-       
+        static void DepartFlight()
+        {
+            Console.Write("Enter flight ID:  ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == flightId);  // find the flight by ID
+
+
+            if (flight == null)
+            {
+                Console.WriteLine("Flight not found");
+                return;
+            }
+
+            if (flight.status != "Scheduled")  //if flight not Scheduled
+            {
+                Console.WriteLine("Only scheduled flights can depart");
+                return;
+            }
+
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == flight.pilotId);  // find the pilot assigned to this flight
+
+
+            if (pilot == null)
+            {
+                Console.WriteLine("Pilot not found");
+                return;
+            }
+
+            Console.Write("Enter flight duration in hours: ");
+            int flightDuration = int.Parse(Console.ReadLine());  // no need to add it proberty becuase i want just to calculate
+
+            if (flightDuration <= 0)
+            {
+                Console.WriteLine("Flight duration must be more than 0 and not negative");
+                return;
+            }
+
+            flight.status = "Departed";  // change status to "Departed"
+
+            pilot.flightHours += flightDuration; // to add it to the pilot's total flight hours
+
+            Console.WriteLine("Flight departed successfully");
+            Console.WriteLine("Pilot flight hours updated.    " + "  pilot's total flight hours:  " + pilot.flightHours);
+        }
 
 
 
 
-            static void Main(string[] args)
+        static void Main(string[] args)
         {
 
 
@@ -557,6 +615,7 @@ namespace MenuOOPsystem
                         CancelBooking();
                         break;
                     case 8:
+                        DepartFlight();
                         break;
                     case 9: 
                         break;

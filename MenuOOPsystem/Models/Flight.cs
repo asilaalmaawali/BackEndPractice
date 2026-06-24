@@ -18,5 +18,7 @@ namespace MenuOOPsystem.Models
         public decimal ticketPrice { get; set; } // Calculated
         public int availableSeats { get; set; } // Calculated
         public string status { get; set; } //  Flight status: Scheduled | Departed | Cancelled
+
+       
     }
 }

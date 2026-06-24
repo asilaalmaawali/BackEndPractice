@@ -445,8 +445,8 @@ namespace MenuOOPsystem
             }
             int bookingId = context.Bookings.Count + 1;   // auto generated
 
-
-            string seatNumber = "S" + (flight.availableSeats);
+            int seatNumber = context.Bookings.Count(b => b.flightId == flightID) + 1;  //means only count bookings for the same flight the passenger selected.
+            string seatLabel = "S" + seatNumber;
 
 
             context.Bookings.Add(
@@ -456,14 +456,11 @@ namespace MenuOOPsystem
                     bookingId = bookingId,
                     passengerId=passengerID,
                     flightId = flightID,
-                    seatNumber = seatNumber,     
+                    seatNumber = seatLabel,     
                     totalPrice = flight.ticketPrice,     // total price for the booking is taken from the flight's ticket price
                     status = "confirmed"
                 
-                
-                
                 }
-
 
                 );
 
@@ -472,7 +469,7 @@ namespace MenuOOPsystem
 
             Console.WriteLine("Booking created successfully");
             Console.WriteLine("Booking ID: " + bookingId);
-            Console.WriteLine("Seat Number: " + seatNumber);
+            Console.WriteLine("Seat Number: " + seatLabel);
             Console.WriteLine("Total Price: " + flight.ticketPrice);
 
 
@@ -563,10 +560,115 @@ namespace MenuOOPsystem
             Console.WriteLine("Pilot flight hours updated.    " + "  pilot's total flight hours:  " + pilot.flightHours);
         }
 
+        static void CancelFlight()
+        {
+
+            Console.Write("Enter flight ID: ");
+            int flightId = int.Parse(Console.ReadLine());
+
+            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == flightId);  //find the flight by ID
 
 
+            if (flight == null)  // if return null after linq
+            {
+                Console.WriteLine("Flight not found.");
+                return;
+            }
 
-        static void Main(string[] args)
+            if (flight.status == "Cancelled")   // if already cancelled
+            {
+                Console.WriteLine("Flight is already cancelled");
+                return;
+            }
+
+            if (flight.status == "Departed") 
+            {
+                Console.WriteLine("Cannot cancel a departed flight");
+                return;
+            }
+
+            flight.status = "Cancelled";   // Change the flight status to Cancelled
+
+            //get all confirmed bookings for this flight
+            List<Booking> flightBookings = context.Bookings
+                                             .Where(b => b.flightId == flightId && b.status == "Confirmed")
+                                             .ToList();
+            
+
+            foreach (Booking booking in flightBookings)  // Cancel each booking linked to this flight
+            {
+                booking.status = "Cancelled";
+              
+            }
+
+
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == flight.pilotId); // find the pilot assigned to this flight
+
+            if (pilot != null)
+            {
+                pilot.isAvailable = true;   // Pilot becomes free again
+
+            }
+
+            Console.WriteLine("Flight cancelled successfully");
+            Console.WriteLine("Number of affected bookings:  " + flightBookings.Count);  // reports how many bookings were affected
+
+
+        }
+        static void PassengerBookingHistory()
+        {
+            Console.Write("Enter passenger ID: ");
+            int passengerId = int.Parse(Console.ReadLine());
+
+            Passenger passenger = context.Passengers.FirstOrDefault(p => p.passengerId == passengerId);
+
+            if (passenger == null)
+            {
+                Console.WriteLine("Passenger not found.");
+                return;
+            }
+
+            List<Booking> passengerBookings = context.Bookings.Where(b => b.passengerId == passengerId)  
+                                                              .ToList();
+
+            if (passengerBookings.Count == 0)
+            {
+                Console.WriteLine("No booking history for this passenger");
+                return;
+            }
+
+            decimal totalSpent = 0; // Start the total from 0.
+
+            Console.WriteLine("===== Passenger Booking History =====");
+
+            foreach (Booking booking in passengerBookings)
+            {
+                Flight flight = context.Flights.FirstOrDefault(f => f.flightId == booking.flightId);  // find the flight connected to this booking. 
+
+                if (flight != null)
+                {
+                    Console.WriteLine("--------------------------------");
+                    Console.WriteLine("Flight Code: " + flight.flightCode);
+                    Console.WriteLine("Origin: " + flight.origin);
+                    Console.WriteLine("Destination: " + flight.destination);
+                    Console.WriteLine("Departure Date: " + flight.departureDate);
+                    Console.WriteLine("Seat Number: " + booking.seatNumber);
+                    Console.WriteLine("Price Paid: " + booking.totalPrice);
+                    Console.WriteLine("Booking Status: " + booking.status);
+
+                    if (booking.status == "Confirmed")
+                    {
+                        totalSpent += booking.totalPrice;  // add this booking price to the total amount.
+                    }
+                }
+            }
+
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("Total spent on confirmed bookings: " + totalSpent);
+        
+        }
+
+            static void Main(string[] args)
         {
 
 
@@ -585,6 +687,8 @@ namespace MenuOOPsystem
                 Console.WriteLine(" 6. Book a Flight");
                 Console.WriteLine(" 7. Cancel a Booking");
                 Console.WriteLine(" 8. Depart a Flight");
+                Console.WriteLine(" 9. Cancel a Flight");
+                Console.WriteLine(" 10. Passenger Booking History");
                 Console.WriteLine(" 0. Exit");
                 Console.WriteLine("========================================");
                 Console.Write("Select option: ");
@@ -617,9 +721,14 @@ namespace MenuOOPsystem
                     case 8:
                         DepartFlight();
                         break;
-                    case 9: 
+                    case 9:
+                        CancelFlight();
                         break;
-                    case 10: 
+                    case 10:
+                        PassengerBookingHistory();
+                        break;
+                    case 11:
+                       
                         break;
                     case 0:
                         exit = true; break;

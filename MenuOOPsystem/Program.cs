@@ -465,7 +465,7 @@ namespace MenuOOPsystem
         }
 
 
-        static void CancelFlight()
+        static void CancelBooking()
         {
 
             Console.Write("Enter booking ID: ");
@@ -473,10 +473,42 @@ namespace MenuOOPsystem
 
             Booking booking = context.Bookings.FirstOrDefault(b => b.bookingId == bookingID);  // to search for matching bookingId that entered by user
 
+            if (booking == null)
+            {
+                Console.WriteLine("Booking not found yet");
+                return;
+            }
+
+            if (booking.status == "Cancelled")
+            {
+                Console.WriteLine("Booking is already cancelled");
+                return;
+            }
+
+            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == booking.flightId);  // get the flight linked to the booking
+
+            if (flight == null)  // if it return null from linq this will appear
+            {
+                Console.WriteLine("Flight not found");
+                return;
+            }
+
+            booking.status = "Cancelled";  // update booking status to "Cancelled"
+
+            flight.availableSeats++;       // return the seat to the flight  // in ViewAllFlight will see 
+
+            Console.WriteLine("Booking cancelled successfully");
+            Console.WriteLine("seat returned to the flight"); 
+
 
         }
+
        
-        static void Main(string[] args)
+
+
+
+
+            static void Main(string[] args)
         {
 
 
@@ -522,7 +554,7 @@ namespace MenuOOPsystem
                         BookFlight();
                         break;
                     case 7:
-                        CancelFlight();
+                        CancelBooking();
                         break;
                     case 8:
                         break;

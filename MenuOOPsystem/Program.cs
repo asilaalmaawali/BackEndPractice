@@ -424,6 +424,11 @@ namespace MenuOOPsystem
                 return;
             }
 
+            if (flight.availableSeats <= 0)   //before creating booking i need to check if there is a available seats.
+            {
+                Console.WriteLine("No seats available for this flight");
+                return;
+            }
             int bookingId = context.Bookings.Count + 1;   // auto generated
 
 
@@ -460,6 +465,17 @@ namespace MenuOOPsystem
         }
 
 
+        static void CancelFlight()
+        {
+
+            Console.Write("Enter booking ID: ");
+            int bookingID = int.Parse(Console.ReadLine());
+
+            Booking booking = context.Bookings.FirstOrDefault(b => b.bookingId == bookingID);  // to search for matching bookingId that entered by user
+
+
+        }
+       
         static void Main(string[] args)
         {
 
@@ -505,7 +521,8 @@ namespace MenuOOPsystem
                     case 6:
                         BookFlight();
                         break;
-                    case 7: 
+                    case 7:
+                        CancelFlight();
                         break;
                     case 8:
                         break;

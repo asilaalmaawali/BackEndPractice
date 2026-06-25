@@ -1,7 +1,9 @@
 ﻿using MenuOOPsystem.Models;
 using Microsoft.Win32;
+using System.Diagnostics.Metrics;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
+using System.Numerics;
 using System.Reflection;
 using System.Xml.Linq;
 
@@ -429,7 +431,7 @@ namespace MenuOOPsystem
             Booking existingBooking = context.Bookings.FirstOrDefault(b =>
                                      b.passengerId == passengerID &&
                                      b.flightId == flightID &&
-                                     b.status == "Confirmed");
+                                     b.status == "confirmed");
             //if this passenger already has a confirmed booking for this flight, stop and do not book again.
             if (existingBooking != null)  
             {
@@ -591,7 +593,7 @@ namespace MenuOOPsystem
 
             //get all confirmed bookings for this flight
             List<Booking> flightBookings = context.Bookings
-                                             .Where(b => b.flightId == flightId && b.status == "Confirmed")
+                                             .Where(b => b.flightId == flightId && b.status == "confirmed")
                                              .ToList();
             
 
@@ -656,7 +658,7 @@ namespace MenuOOPsystem
                     Console.WriteLine("Price Paid: " + booking.totalPrice);
                     Console.WriteLine("Booking Status: " + booking.status);
 
-                    if (booking.status == "Confirmed")
+                    if (booking.status == "confirmed")
                     {
                         totalSpent += booking.totalPrice;  // add this booking price to the total amount.
                     }
@@ -668,6 +670,58 @@ namespace MenuOOPsystem
         
         }
 
+        static void FlightRevenue_and_LoadFactorReport()
+        {
+            if (context.Flights.Count == 0)
+            {
+                Console.WriteLine("No flights found");
+                return;
+            }
+
+            decimal allFlightsRevenue = 0;
+            // show how much money each flight made and how full each flight is.
+
+            Console.WriteLine("===== Flight Revenue Report =====");
+
+            foreach (Flight f in context.Flights.OrderByDescending(f => context.Bookings.Where(b => b.flightId == f.flightId && b.status == "confirmed").Sum(b => b.totalPrice)))    // go flight by flight  //OrderByDescending to sort from highest revenue to lowest revenue
+            {
+                Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.aircraftId == f.aircraftId);  // find the aircraft used by this flight.
+
+                if (aircraft == null) // if aircraft does not found , skip this flight and go for the second flight
+                {
+                    Console.WriteLine("Aircraft not found for flight: " + f.flightCode);
+                    continue;  // do not stop the report just skip this flight and continue with rest.
+                }
+
+
+
+
+                int totalSeats = aircraft.totalSeats;  // i do it inside foreach becuase the aircraft created inside it
+
+
+                int confirmedBookings = context.Bookings.Count(b =>b.flightId == f.flightId && b.status == "confirmed"); //  Count only confirmed bookings for this flight
+
+                decimal totalRevenue = context.Bookings.Where(b => b.flightId == f.flightId && b.status == "confirmed").Sum(b => b.totalPrice); //  Add the prices of confirmed bookings only
+
+                decimal loadFactor = ((decimal)confirmedBookings / totalSeats) * 100;  // Calculate how full the flight is
+
+                allFlightsRevenue += totalRevenue;  // Add this flight revenue to all flights revenue   نجمع دخل هذه الرحله مع دخل كل الرحلات
+
+                // Display flight report
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Flight Code: " + f.flightCode);
+                Console.WriteLine("Route: " + f.origin + " -> " + f.destination);
+                Console.WriteLine("Confirmed Bookings: " + confirmedBookings);
+                Console.WriteLine("Total Revenue: " + totalRevenue);  // this for each flight
+                Console.WriteLine("Load Factor: " + loadFactor.ToString("F2") + "%");  // print only 2 decimal places becuase the number be very long without this format
+
+            }
+           
+
+            // Display total revenue from all flights
+            Console.WriteLine("--------------------------------");
+            Console.WriteLine("All Flights Revenue: " + allFlightsRevenue);  // total flight revenue  مجموع الايرادات  // this for all flight
+        }
             static void Main(string[] args)
         {
 
@@ -679,16 +733,17 @@ namespace MenuOOPsystem
                 Console.WriteLine("========================================");
                 Console.WriteLine("   Flight Management System   ");
                 Console.WriteLine("========================================");
-                Console.WriteLine(" 1. Register a Passenger");
-                Console.WriteLine(" 2. Add an Aircraft");
-                Console.WriteLine(" 3. Register a Pilot");
-                Console.WriteLine(" 4. View All Flights");
-                Console.WriteLine(" 5. Schedule a Flight");
-                Console.WriteLine(" 6. Book a Flight");
-                Console.WriteLine(" 7. Cancel a Booking");
-                Console.WriteLine(" 8. Depart a Flight");
-                Console.WriteLine(" 9. Cancel a Flight");
+                Console.WriteLine(" 1.  Register a Passenger");
+                Console.WriteLine(" 2.  Add an Aircraft");
+                Console.WriteLine(" 3.  Register a Pilot");
+                Console.WriteLine(" 4.  View All Flights");
+                Console.WriteLine(" 5.  Schedule a Flight");
+                Console.WriteLine(" 6.  Book a Flight");
+                Console.WriteLine(" 7.  Cancel a Booking");
+                Console.WriteLine(" 8.  Depart a Flight");
+                Console.WriteLine(" 9.  Cancel a Flight");
                 Console.WriteLine(" 10. Passenger Booking History");
+                Console.WriteLine(" 11. Flight Revenue & Load Factor Report");
                 Console.WriteLine(" 0. Exit");
                 Console.WriteLine("========================================");
                 Console.Write("Select option: ");
@@ -728,7 +783,7 @@ namespace MenuOOPsystem
                         PassengerBookingHistory();
                         break;
                     case 11:
-                       
+                        FlightRevenue_and_LoadFactorReport(); // تقرير ايرادات الرحلات ومعامل الحموله
                         break;
                     case 0:
                         exit = true; break;

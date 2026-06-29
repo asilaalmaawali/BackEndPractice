@@ -32,7 +32,7 @@ namespace MenuOOPsystem
             Console.Write("Enter passenger email: ");
             string email = Console.ReadLine().Trim();
 
-            if (!email.Contains("@"))   // email validation should contain @
+            if (!email.Contains("@gmail.com"))   // email validation should contain @
             {
                 Console.WriteLine("Invalid email. Email must contain @");
                 return;

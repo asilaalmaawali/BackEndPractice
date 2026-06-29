@@ -158,7 +158,7 @@ namespace MenuOOPsystem
             Console.Write("Enter pilot phone: ");
             string phone = Console.ReadLine().Trim();
 
-            if (!phone.StartsWith("+968"))      // validation for phone
+            if (!phone.StartsWith("+968") || phone.Length != 8)      // validation for phone
             {
                 Console.WriteLine("Invalid phone number. Please re-type phone must start with +968");
                 return;

@@ -175,7 +175,8 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter flight hours: ");         // enter pilot’s old hours experience.
-            int FlightHours = int.Parse(Console.ReadLine());
+            double FlightHours;
+            double.TryParse(Console.ReadLine(), out FlightHours);
 
             if (FlightHours == null)
             {
@@ -551,17 +552,34 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter flight duration in hours: ");
-            int flightDuration = int.Parse(Console.ReadLine());  // no need to add it proberty becuase i want just to calculate
 
-            if (flightDuration <= 0)
+            
+            double hours;
+            double.TryParse(Console.ReadLine(), out hours);  // no need to add it proberty becuase i want just to calculate
+
+            Console.Write("Enter flight duration minutes: ");
+            double minutes;
+            double.TryParse(Console.ReadLine(), out minutes);
+            
+
+            if (hours < 0 || minutes < 0 || minutes >= 60)
             {
-                Console.WriteLine("Flight duration must be more than 0 and not negative");
+                Console.WriteLine("Invalid duration.");
                 return;
             }
 
+            if (hours == 0 && minutes == 0)
+            {
+                Console.WriteLine("Flight duration must be more than 0.");
+                return;
+            }
+
+            double FlightDuration = hours + (minutes / 60.0);
+
+
             flight.Status = "Departed";  // change Status to "Departed"
 
-            pilot.FlightHours += flightDuration; // to add it to the pilot's total flight hours
+            pilot.FlightHours += FlightDuration; // to add it to the pilot's total flight hours
 
             Console.WriteLine("Flight departed successfully");
             Console.WriteLine("Pilot flight hours updated.    " + "  pilot's total flight hours:  " + pilot.FlightHours);

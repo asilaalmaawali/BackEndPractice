@@ -13,8 +13,9 @@ namespace MenuOOPsystem.Models
         public int PilotId { get; set; } //  from pilots list
         public string origin { get; set; } //user input             Departure airport / city
         public string destination { get; set; } //user input        Arrival airport / city
-        public string DepartureDate { get; set; } // 
-        public string DepartureTime { get; set; } // 
+        public string DepartureDate { get; set; } // user input
+        public string DepartureTime { get; set; } // user input
+        public double FlightDuration { get; set; } // Calculated
         public decimal TicketPrice { get; set; } // Calculated
         public int AvailableSeats { get; set; } // Calculated
         public string Status { get; set; } //  Flight status: Scheduled | Departed | Cancelled

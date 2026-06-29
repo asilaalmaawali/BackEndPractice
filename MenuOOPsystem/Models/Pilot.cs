@@ -10,7 +10,7 @@ namespace MenuOOPsystem.Models
         public string PilotName { get; set; } // user input
         public string PilotPhone { get; set; } // user input
         public string LicenseNumber { get; set; } // user input
-        public int FlightHours { get; set; } // Calculated
+        public double FlightHours { get; set; } // Calculated
         public bool IsAvailable { get; set; } // by default
     }
 }

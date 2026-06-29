@@ -41,7 +41,9 @@ namespace MenuOOPsystem
             Console.Write("Enter passenger phone:");
             string phone = Console.ReadLine().Trim();
 
-            if (!phone.StartsWith("+968"))      // validation for phone
+
+
+            if (!phone.StartsWith("+968") || phone.Length != 8)      // validation for phone start with (+968) and accept 8 digit
             {
                 Console.WriteLine("Invalid phone number. Please re-type phone must start with +968");
                 return;

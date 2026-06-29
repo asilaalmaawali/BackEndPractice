@@ -718,7 +718,7 @@ namespace MenuOOPsystem
                 Console.WriteLine("Route: " + f.origin + " -> " + f.destination);
                 Console.WriteLine("Confirmed Bookings: " + confirmedBookings);
                 Console.WriteLine("Total Revenue: " + totalRevenue);  // this for each flight
-                Console.WriteLine("Load Factor: " + loadFactor.ToString("F2") + "%");  // print only 2 decimal places becuase the number be very long without this format
+                Console.WriteLine("Load Factor: " + Math.Round(loadFactor,2) + "%");  // print only 2 decimal places becuase the number be very long without this format
 
             }
            

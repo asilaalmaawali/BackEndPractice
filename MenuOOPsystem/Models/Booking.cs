@@ -6,13 +6,13 @@ namespace MenuOOPsystem.Models
 {
     internal class Booking
     {
-        public int bookingId { get; set; } // system generated
-        public int passengerId { get; set; } // from passengers list
-        public int flightId { get; set; } // from flights list
-        public string seatNumber { get; set; } // system generated       Seat label assigned at booking (e.g. 14A)
-        public string bookingDate { get; set; } // 
-        public decimal totalPrice { get; set; } // Calculated 
-        public string status { get; set; } //                       Booking status: Confirmed | Cancelled
+        public int BookingId { get; set; } // system generated
+        public int PassengerId { get; set; } // from passengers list
+        public int FlightId { get; set; } // from flights list
+        public string SeatNumber { get; set; } // system generated       Seat label assigned at booking (e.g. 14A)
+        public string BookingDate { get; set; } //  system generated  
+        public decimal TotalPrice { get; set; } // Calculated 
+        public string Status { get; set; } //  by default                     Booking status: Confirmed | Cancelled
 
 
 

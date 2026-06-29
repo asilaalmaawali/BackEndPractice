@@ -6,11 +6,11 @@ namespace MenuOOPsystem.Models
 {
     internal class Pilot
     {
-        public int pilotId { get; set; } // system generated
-        public string pilotName { get; set; } // user input
-        public string pilotPhone { get; set; } // user input
-        public string licenseNumber { get; set; } // user input
-        public int flightHours { get; set; } // Calculated
-        public bool isAvailable { get; set; } // Calculated
+        public int PilotId { get; set; } // system generated
+        public string PilotName { get; set; } // user input
+        public string PilotPhone { get; set; } // user input
+        public string LicenseNumber { get; set; } // user input
+        public int FlightHours { get; set; } // Calculated
+        public bool IsAvailable { get; set; } // by default
     }
 }

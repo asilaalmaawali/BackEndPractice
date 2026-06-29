@@ -57,7 +57,7 @@ namespace MenuOOPsystem
             }
 
             // to validate if passport exists  or not , should be unique
-            bool passportExists = context.Passengers.Any(p => p.passportNumber == passport);  // i want to verified specific data 
+            bool passportExists = context.Passengers.Any(p => p.PassportNumber == passport);  // i want to verified specific data 
 
             if (passportExists== true)
             {
@@ -65,34 +65,34 @@ namespace MenuOOPsystem
                 return;
             }
 
-            Console.Write("Enter nationality: ");
-            string nationality = Console.ReadLine().Trim();  
+            Console.Write("Enter Nationality: ");
+            string Nationality = Console.ReadLine().Trim();  
 
-            if (nationality == "")
+            if (Nationality == "")
             {
                 Console.WriteLine("Nationality cannot be empty");
                 return;
             }
 
-            int passengerId = context.Passengers.Count + 1;     // // auto generated ID
+            int PassengerId = context.Passengers.Count + 1;     // // auto generated ID
 
             context.Passengers.Add(
 
                 new Passenger
                 {
-                    passengerId = passengerId,
-                    passengerName = Name,
-                    passengerEmail = email,
-                    passengerPhone = phone,
-                    passportNumber = passport,
-                    nationality = nationality,
+                    PassengerId = PassengerId,
+                    PassengerName = Name,
+                    PassengerEmail = email,
+                    PassengerPhone = phone,
+                    PassportNumber = passport,
+                    Nationality = Nationality,
 
 
                 });
 
             Console.WriteLine("Passenger registered successfully");
 
-            Console.WriteLine("Patient registered successfully. Assigned ID:  "+passengerId);
+            Console.WriteLine("Patient registered successfully. Assigned ID:  "+ PassengerId);
 
 
         }
@@ -104,24 +104,24 @@ namespace MenuOOPsystem
              and the system gives it a new Aircraft ID.*/       
 
             Console.Write("Enter aircraft model: ");   // ex : Boeing 737 , Airbus A320 
-            string model = Console.ReadLine().Trim();
+            string Model = Console.ReadLine().Trim();
 
-            if (model == "")
+            if (Model == "")
             {
                 Console.WriteLine("Aircraft model cannot be empty");
                 return;
             }
 
             Console.Write("Enter total seats: ");
-            int totalSeats = int.Parse(Console.ReadLine().Trim());
+            int TotalSeats = int.Parse(Console.ReadLine().Trim());
 
-            if (totalSeats <= 0)   // if the total of seats less than zero it should appear this message
+            if (TotalSeats <= 0)   // if the total of seats less than zero it should appear this message
             {
                 Console.WriteLine("Total seats must be greater than 0.");
                 return;
             }
 
-            int aircraftId = context.Aircrafts.Count + 1;    // auto generated ID
+            int AircraftId = context.Aircrafts.Count + 1;    // auto generated ID
 
 
 
@@ -130,15 +130,15 @@ namespace MenuOOPsystem
             new Aircraft
             {
 
-                aircraftId = aircraftId,
-                model = model,
-                totalSeats = totalSeats,
-                isOperational = true // as default   , becuase When we add a new aircraft, it is available/ready for future flights by default.
+                AircraftId = AircraftId,
+                Model = Model,
+                TotalSeats = TotalSeats,
+                IsOperational = true // as default   , becuase When we add a new aircraft, it is available/ready for future flights by default.
 
             });
 
             Console.WriteLine("Aircraft added successfully");
-            Console.WriteLine("Aircraft Model :  "+ model + "  Total Seats: "+totalSeats +"  Assigned ID: " + aircraftId );  //output ex =>  Aircraft Model :  Boeing 737  Total Seats: 10  Assigned ID: 1 
+            Console.WriteLine("Aircraft Model :  "+ Model + "  Total Seats: "+ TotalSeats + "  Assigned ID: " + AircraftId);  //output ex =>  Aircraft Model :  Boeing 737  Total Seats: 10  Assigned ID: 1 
 
         }
 
@@ -164,48 +164,48 @@ namespace MenuOOPsystem
 
 
             Console.Write("Enter license number: ");
-            string licenseNumber = Console.ReadLine().Trim();
+            string LicenseNumber = Console.ReadLine().Trim();
 
-            if (licenseNumber == "")
+            if (LicenseNumber == "")
             {
                 Console.WriteLine("license number cannot be empty");
                 return;
             }
 
             Console.Write("Enter flight hours: ");         // enter pilot’s old hours experience.
-            int flightHours = int.Parse(Console.ReadLine());
+            int FlightHours = int.Parse(Console.ReadLine());
 
-            if (flightHours == null)
+            if (FlightHours == null)
             {
                 Console.WriteLine("flight hours cannot be empty");
                 return;
             }
 
-            if (flightHours < 0)  // the hours cannot be negative
+            if (FlightHours < 0)  // the hours cannot be negative
             {
                 Console.WriteLine("Flight hours cannot be negative.");
                 return;
             }
 
 
-            int pilotId = context.Pilots.Count + 1;  // auto generated ID
+            int PilotId = context.Pilots.Count + 1;  // auto generated ID
 
             context.Pilots.Add(
 
                 new Pilot {
 
-                    pilotId = pilotId,
-                    pilotName = name,
-                    pilotPhone = phone,
-                    licenseNumber = licenseNumber,
-                    flightHours = flightHours,
-                    isAvailable = true      // as default because the pilot is free and ready to be assigned to a flight. they are not assigned to any flight yet.
+                    PilotId = PilotId,
+                    PilotName = name,
+                    PilotPhone = phone,
+                    LicenseNumber = LicenseNumber,
+                    FlightHours = FlightHours,
+                    IsAvailable = true      // as default because the pilot is free and ready to be assigned to a flight. they are not assigned to any flight yet.
                 }
 
                 );
 
 
-            Console.WriteLine("Pilot registered successfully. Pilot ID:  " + pilotId);
+            Console.WriteLine("Pilot registered successfully. Pilot ID:  " + PilotId);
              
         }
 
@@ -224,14 +224,14 @@ namespace MenuOOPsystem
             {
 
                 Console.WriteLine("                                    ");
-                Console.WriteLine("Flight Code: " + f.flightCode);
+                Console.WriteLine("Flight Code: " + f.FlightCode);
                 Console.WriteLine("Origin: " + f.origin);
                 Console.WriteLine("Destination: " + f.destination);
-                Console.WriteLine("Departure Date: " + f.departureDate);
-                Console.WriteLine("Departure Time: " + f.departureTime);
-                Console.WriteLine("Available Seats: " + f.availableSeats);
-                Console.WriteLine("Ticket Price: " + f.ticketPrice);
-                Console.WriteLine("Status: " + f.status);
+                Console.WriteLine("Departure Date: " + f.DepartureDate);
+                Console.WriteLine("Departure Time: " + f.DepartureTime);
+                Console.WriteLine("Available Seats: " + f.AvailableSeats);
+                Console.WriteLine("Ticket Price: " + f.TicketPrice);
+                Console.WriteLine("Status: " + f.Status);
 
             }
         }
@@ -239,9 +239,9 @@ namespace MenuOOPsystem
         static void ScheduleFlight()
         {
             Console.Write("Enter aircraft ID: ");  
-            int aircraftId = int.Parse(Console.ReadLine());
+            int AircraftId = int.Parse(Console.ReadLine());
 
-            Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.aircraftId == aircraftId);   // use FirstOrDefault because the whole object data is needed to be used in the upcoming steps
+            Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.AircraftId == AircraftId);   // use FirstOrDefault because the whole object data is needed to be used in the upcoming steps
 
             if (aircraft == null)
             {
@@ -251,7 +251,7 @@ namespace MenuOOPsystem
 
             }
 
-            if (aircraft.isOperational == false)
+            if (aircraft.IsOperational == false)
             {
                 Console.WriteLine("aircraft is not operational");
                 return;
@@ -259,9 +259,9 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter Pilot Id ID: ");
-            int pilotId = int.Parse(Console.ReadLine());
+            int PilotId = int.Parse(Console.ReadLine());
 
-            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == pilotId);  //Search inside the pilots list and get the pilot whose pilotId matches the entered pilotId
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.PilotId == PilotId);  //Search inside the pilots list and get the pilot whose pilotId matches the entered pilotId
 
             if (pilot == null)
             {
@@ -269,7 +269,7 @@ namespace MenuOOPsystem
                 return;
             }
 
-            if (pilot.isAvailable == false)  // not available
+            if (pilot.IsAvailable == false)  // not available
             {
                 Console.WriteLine("Pilot is not available");
                 return;
@@ -294,30 +294,30 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter departure date (dd/MM/yyyy):  ");  // must be 10 Character , and the (/) be in same position of format 
-            string departureDate = Console.ReadLine().Trim();
+            string DepartureDate = Console.ReadLine().Trim();
 
-            if (departureDate == "")
+            if (DepartureDate == "")
             {
                 Console.WriteLine("Departure date cannot be empty");
                 return;
             }
 
-            if (departureDate.Length != 10 || departureDate[2] != '/' || departureDate[5] != '/')  // (/) should be in same places
+            if (DepartureDate.Length != 10 || DepartureDate[2] != '/' || DepartureDate[5] != '/')  // (/) should be in same places
             {
                 Console.WriteLine("Invalid date format. re-type in this format=> dd/MM/yyyy ex: 24/06/2026");
                 return;
             }
 
             Console.Write("Enter departure time: ");
-            string departureTime = Console.ReadLine().Trim();
+            string DepartureTime = Console.ReadLine().Trim();
 
-            if (departureTime == "")
+            if (DepartureTime == "")
             {
                 Console.WriteLine("Departure time cannot be empty.");
                 return;
             }
 
-            if (departureTime.Length != 5 || departureTime[2] != ':')  // the length should must be 5 Character if not will catch them, departureTime[2] != ':' => means the third character must be " : "
+            if (DepartureTime.Length != 5 || DepartureTime[2] != ':')  // the length should must be 5 Character if not will catch them, departureTime[2] != ':' => means the third character must be " : "
 
             {
                 Console.WriteLine("Invalid time format. re-type in this format=> HH:mm ex: 09:30");
@@ -325,44 +325,44 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter ticket price: ");
-            decimal ticketPrice = decimal.Parse(Console.ReadLine());
+            decimal TicketPrice = decimal.Parse(Console.ReadLine());
 
-            if (ticketPrice <= 0)   // the price should not be negative or equal zero
+            if (TicketPrice <= 0)   // the price should not be negative or equal zero
             {
                 Console.WriteLine("Ticket price must be more than 0.");
                 return;
             }
 
-            int flightId = context.Flights.Count + 1;  // auto ID generation
+            int FlightId = context.Flights.Count + 1;  // auto ID generation
 
-            string flightCode = "OA-" + flightId;
+            string FlightCode = "OA-" + FlightId;
 
 
             context.Flights.Add(
 
                 new Flight
                 {
-                    flightId = flightId,
-                    flightCode = flightCode,
-                    aircraftId = aircraftId,
-                    pilotId = pilotId,
+                    FlightId = FlightId,
+                    FlightCode = FlightCode,
+                    AircraftId = AircraftId,
+                    PilotId = PilotId,
                     origin = origin,
                     destination = destination,
-                    departureDate = departureDate,
-                    departureTime = departureTime,
-                    ticketPrice = ticketPrice,
-                    availableSeats = aircraft.totalSeats,
-                    status = "Scheduled"         // as default because the flight is created but has not departed or cancelled yet
+                    DepartureDate = DepartureDate,
+                    DepartureTime = DepartureTime,
+                    TicketPrice = TicketPrice,
+                    AvailableSeats = aircraft.TotalSeats,
+                    Status = "Scheduled"         // as default because the flight is created but has not departed or cancelled yet
                 }
 
                 );
 
-            pilot.isAvailable = false;  //  pilot is assigned, not free
+            pilot.IsAvailable = false;  //  pilot is assigned, not free
            
 
             Console.WriteLine("Flight scheduled successfully.");
-            Console.WriteLine("Flight ID: " + flightId);
-            Console.WriteLine("Flight Code: " + flightCode);
+            Console.WriteLine("Flight ID: " + FlightId);
+            Console.WriteLine("Flight Code: " + FlightCode);
 
         }
 
@@ -371,10 +371,10 @@ namespace MenuOOPsystem
         {
 
             Console.WriteLine("Enter the Passenger ID");
-            int passengerID = int.Parse(Console.ReadLine());
+            int PassengerId = int.Parse(Console.ReadLine());
 
 
-            Passenger passenger = context.Passengers.FirstOrDefault(p => p.passengerId == passengerID);  // check passenger exsits
+            Passenger passenger = context.Passengers.FirstOrDefault(p => p.PassengerId == PassengerId);  // check passenger exsits
 
             if (passenger == null)
             {
@@ -394,8 +394,8 @@ namespace MenuOOPsystem
 
              // search for all flights and keep only the flights that the passenger can book.
             List<Flight> availableFlights = context.Flights.Where(f => f.destination .ToLower() == destination.ToLower()   // the flight destination must match what the user typed.
-                                                            && f.status == "Scheduled"  // show only flights that are scheduled
-                                                            && f.availableSeats > 0)    // still have seats
+                                                            && f.Status == "Scheduled"  // show only flights that are scheduled
+                                                            && f.AvailableSeats > 0)    // still have seats
                                                             .ToList();  // save the matching flights in a list called availableFlights.
            
 
@@ -410,7 +410,7 @@ namespace MenuOOPsystem
 
             foreach (Flight f in availableFlights)
             {
-                Console.WriteLine($"ID: {f.flightId} | Flight Code: {f.flightCode} | Origin: {f.origin} | Destination: {f.destination} | Date: {f.departureDate} | Time: {f.departureTime} | Available Seats: {f.availableSeats} | Ticket Price: {f.ticketPrice}");
+                Console.WriteLine($"ID: {f.FlightId} | Flight Code: {f.FlightCode} | Origin: {f.origin} | Destination: {f.destination} | Date: {f.DepartureDate} | Time: {f.DepartureTime} | Available Seats: {f.AvailableSeats} | Ticket Price: {f.TicketPrice}");
             }
 
 
@@ -418,8 +418,8 @@ namespace MenuOOPsystem
             Console.WriteLine("Enter the Flight ID");
 
 
-            int flightID = int.Parse(Console.ReadLine());
-            Flight flight = availableFlights.FirstOrDefault(f => f.flightId == flightID);  /// to check it matched the user input and use it for another steps
+            int FlightId = int.Parse(Console.ReadLine());
+            Flight flight = availableFlights.FirstOrDefault(f => f.FlightId == FlightId);  /// to check it matched the user input and use it for another steps
 
             if (flight == null)
             {
@@ -429,9 +429,9 @@ namespace MenuOOPsystem
 
             // to check that passenger cannot booked again same flight , ex: passenger ID try to booked two time same Flight Id the booking will be duplicated. 
             Booking existingBooking = context.Bookings.FirstOrDefault(b =>
-                                     b.passengerId == passengerID &&
-                                     b.flightId == flightID &&
-                                     b.status == "confirmed");
+                                     b.PassengerId == PassengerId &&
+                                     b.FlightId == FlightId &&
+                                     b.Status == "confirmed");
             //if this passenger already has a confirmed booking for this flight, stop and do not book again.
             if (existingBooking != null)  
             {
@@ -440,39 +440,39 @@ namespace MenuOOPsystem
             }
 
 
-            if (flight.availableSeats <= 0)   //before creating booking i need to check if there is a available seats.
+            if (flight.AvailableSeats <= 0)   //before creating booking i need to check if there is a available seats.
             {
                 Console.WriteLine("No seats available for this flight");
                 return;
             }
-            int bookingId = context.Bookings.Count + 1;   // auto generated
+            int BookingId = context.Bookings.Count + 1;   // auto generated
 
-            int seatNumber = context.Bookings.Count(b => b.flightId == flightID) + 1;  //means only count bookings for the same flight the passenger selected.
-            string seatLabel = "S" + seatNumber;
+            int SeatNumber = context.Bookings.Count(b => b.FlightId == FlightId) + 1;  //means only count bookings for the same flight the passenger selected.
+            string seatLabel = "S" + SeatNumber;
 
 
             context.Bookings.Add(
 
                 new Booking
-                { 
-                    bookingId = bookingId,
-                    passengerId=passengerID,
-                    flightId = flightID,
-                    seatNumber = seatLabel,     
-                    totalPrice = flight.ticketPrice,     // total price for the booking is taken from the flight's ticket price
-                    status = "confirmed"
+                {
+                    BookingId = BookingId,
+                    PassengerId= PassengerId,
+                    FlightId = FlightId,
+                    SeatNumber = seatLabel,
+                    TotalPrice = flight.TicketPrice,     // total price for the booking is taken from the flight's ticket price
+                    Status = "confirmed"
                 
                 }
 
                 );
 
            
-            flight.availableSeats--;  // the flight's available seat count decreases by one
+            flight.AvailableSeats--;  // the flight's available seat count decreases by one
 
             Console.WriteLine("Booking created successfully");
-            Console.WriteLine("Booking ID: " + bookingId);
+            Console.WriteLine("Booking ID: " + BookingId);
             Console.WriteLine("Seat Number: " + seatLabel);
-            Console.WriteLine("Total Price: " + flight.ticketPrice);
+            Console.WriteLine("Total Price: " + flight.TicketPrice);
 
 
         }
@@ -482,9 +482,9 @@ namespace MenuOOPsystem
         {
 
             Console.Write("Enter booking ID: ");
-            int bookingID = int.Parse(Console.ReadLine());
+            int BookingId = int.Parse(Console.ReadLine());
 
-            Booking booking = context.Bookings.FirstOrDefault(b => b.bookingId == bookingID);  // to search for matching bookingId that entered by user
+            Booking booking = context.Bookings.FirstOrDefault(b => b.BookingId == BookingId);  // to search for matching BookingId that entered by user
 
             if (booking == null)
             {
@@ -492,13 +492,13 @@ namespace MenuOOPsystem
                 return;
             }
 
-            if (booking.status == "Cancelled")
+            if (booking.Status == "Cancelled")
             {
                 Console.WriteLine("Booking is already cancelled");
                 return;
             }
 
-            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == booking.flightId);  // get the flight linked to the booking
+            Flight flight = context.Flights.FirstOrDefault(f => f.FlightId == booking.FlightId);  // get the flight linked to the booking
 
             if (flight == null)  // if it return null from linq this will appear
             {
@@ -506,9 +506,9 @@ namespace MenuOOPsystem
                 return;
             }
 
-            booking.status = "Cancelled";  // update booking status to "Cancelled"
+            booking.Status = "Cancelled";  // update booking Status to "Cancelled"
 
-            flight.availableSeats++;       // return the seat to the flight  // in ViewAllFlight will see 
+            flight.AvailableSeats++;       // return the seat to the flight  // in ViewAllFlight will see 
 
             Console.WriteLine("Booking cancelled successfully");
             Console.WriteLine("seat returned to the flight"); 
@@ -519,9 +519,9 @@ namespace MenuOOPsystem
         static void DepartFlight()
         {
             Console.Write("Enter flight ID:  ");
-            int flightId = int.Parse(Console.ReadLine());
+            int FlightId = int.Parse(Console.ReadLine());
 
-            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == flightId);  // find the flight by ID
+            Flight flight = context.Flights.FirstOrDefault(f => f.FlightId == FlightId);  // find the flight by ID
 
 
             if (flight == null)
@@ -530,13 +530,13 @@ namespace MenuOOPsystem
                 return;
             }
 
-            if (flight.status != "Scheduled")  //if flight not Scheduled
+            if (flight.Status != "Scheduled")  //if flight not Scheduled
             {
                 Console.WriteLine("Only scheduled flights can depart");
                 return;
             }
 
-            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == flight.pilotId);  // find the pilot assigned to this flight
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.PilotId == flight.PilotId);  // find the pilot assigned to this flight
 
 
             if (pilot == null)
@@ -554,21 +554,21 @@ namespace MenuOOPsystem
                 return;
             }
 
-            flight.status = "Departed";  // change status to "Departed"
+            flight.Status = "Departed";  // change Status to "Departed"
 
-            pilot.flightHours += flightDuration; // to add it to the pilot's total flight hours
+            pilot.FlightHours += flightDuration; // to add it to the pilot's total flight hours
 
             Console.WriteLine("Flight departed successfully");
-            Console.WriteLine("Pilot flight hours updated.    " + "  pilot's total flight hours:  " + pilot.flightHours);
+            Console.WriteLine("Pilot flight hours updated.    " + "  pilot's total flight hours:  " + pilot.FlightHours);
         }
 
         static void CancelFlight()
         {
 
             Console.Write("Enter flight ID: ");
-            int flightId = int.Parse(Console.ReadLine());
+            int FlightId = int.Parse(Console.ReadLine());
 
-            Flight flight = context.Flights.FirstOrDefault(f => f.flightId == flightId);  //find the flight by ID
+            Flight flight = context.Flights.FirstOrDefault(f => f.FlightId == FlightId);  //find the flight by ID
 
 
             if (flight == null)  // if return null after linq
@@ -577,38 +577,38 @@ namespace MenuOOPsystem
                 return;
             }
 
-            if (flight.status == "Cancelled")   // if already cancelled
+            if (flight.Status == "Cancelled")   // if already cancelled
             {
                 Console.WriteLine("Flight is already cancelled");
                 return;
             }
 
-            if (flight.status == "Departed") 
+            if (flight.Status == "Departed") 
             {
                 Console.WriteLine("Cannot cancel a departed flight");
                 return;
             }
 
-            flight.status = "Cancelled";   // Change the flight status to Cancelled
+            flight.Status = "Cancelled";   // Change the flight Status to Cancelled
 
             //get all confirmed bookings for this flight
             List<Booking> flightBookings = context.Bookings
-                                             .Where(b => b.flightId == flightId && b.status == "confirmed")
+                                             .Where(b => b.FlightId == FlightId && b.Status == "confirmed")
                                              .ToList();
             
 
             foreach (Booking booking in flightBookings)  // Cancel each booking linked to this flight
             {
-                booking.status = "Cancelled";
+                booking.Status = "Cancelled";
               
             }
 
 
-            Pilot pilot = context.Pilots.FirstOrDefault(p => p.pilotId == flight.pilotId); // find the pilot assigned to this flight
+            Pilot pilot = context.Pilots.FirstOrDefault(p => p.PilotId == flight.PilotId); // find the pilot assigned to this flight
 
             if (pilot != null)
             {
-                pilot.isAvailable = true;   // Pilot becomes free again
+                pilot.IsAvailable = true;   // Pilot becomes free again
 
             }
 
@@ -620,9 +620,9 @@ namespace MenuOOPsystem
         static void PassengerBookingHistory()
         {
             Console.Write("Enter passenger ID: ");
-            int passengerId = int.Parse(Console.ReadLine());
+            int PassengerId = int.Parse(Console.ReadLine());
 
-            Passenger passenger = context.Passengers.FirstOrDefault(p => p.passengerId == passengerId);
+            Passenger passenger = context.Passengers.FirstOrDefault(p => p.PassengerId == PassengerId);
 
             if (passenger == null)
             {
@@ -630,7 +630,7 @@ namespace MenuOOPsystem
                 return;
             }
 
-            List<Booking> passengerBookings = context.Bookings.Where(b => b.passengerId == passengerId)  
+            List<Booking> passengerBookings = context.Bookings.Where(b => b.PassengerId == PassengerId)  
                                                               .ToList();
 
             if (passengerBookings.Count == 0)
@@ -645,22 +645,22 @@ namespace MenuOOPsystem
 
             foreach (Booking booking in passengerBookings)
             {
-                Flight flight = context.Flights.FirstOrDefault(f => f.flightId == booking.flightId);  // find the flight connected to this booking. 
+                Flight flight = context.Flights.FirstOrDefault(f => f.FlightId == booking.FlightId);  // find the flight connected to this booking. 
 
                 if (flight != null)
                 {
                     Console.WriteLine("--------------------------------");
-                    Console.WriteLine("Flight Code: " + flight.flightCode);
+                    Console.WriteLine("Flight Code: " + flight.FlightCode);
                     Console.WriteLine("Origin: " + flight.origin);
                     Console.WriteLine("Destination: " + flight.destination);
-                    Console.WriteLine("Departure Date: " + flight.departureDate);
-                    Console.WriteLine("Seat Number: " + booking.seatNumber);
-                    Console.WriteLine("Price Paid: " + booking.totalPrice);
-                    Console.WriteLine("Booking Status: " + booking.status);
+                    Console.WriteLine("Departure Date: " + flight.DepartureDate);
+                    Console.WriteLine("Seat Number: " + booking.SeatNumber);
+                    Console.WriteLine("Price Paid: " + booking.TotalPrice);
+                    Console.WriteLine("Booking Status: " + booking.Status);
 
-                    if (booking.status == "confirmed")
+                    if (booking.Status == "confirmed")
                     {
-                        totalSpent += booking.totalPrice;  // add this booking price to the total amount.
+                        totalSpent += booking.TotalPrice;  // add this booking price to the total amount.
                     }
                 }
             }
@@ -683,33 +683,33 @@ namespace MenuOOPsystem
 
             Console.WriteLine("===== Flight Revenue Report =====");
 
-            foreach (Flight f in context.Flights.OrderByDescending(f => context.Bookings.Where(b => b.flightId == f.flightId && b.status == "confirmed").Sum(b => b.totalPrice)))    // go flight by flight  //OrderByDescending to sort from highest revenue to lowest revenue
+            foreach (Flight f in context.Flights.OrderByDescending(f => context.Bookings.Where(b => b.FlightId == f.FlightId && b.Status == "confirmed").Sum(b => b.TotalPrice)))    // go flight by flight  //OrderByDescending to sort from highest revenue to lowest revenue
             {
-                Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.aircraftId == f.aircraftId);  // find the aircraft used by this flight.
+                Aircraft aircraft = context.Aircrafts.FirstOrDefault(a => a.AircraftId == f.AircraftId);  // find the aircraft used by this flight.
 
                 if (aircraft == null) // if aircraft does not found , skip this flight and go for the second flight
                 {
-                    Console.WriteLine("Aircraft not found for flight: " + f.flightCode);
+                    Console.WriteLine("Aircraft not found for flight: " + f.FlightCode);
                     continue;  // do not stop the report just skip this flight and continue with rest.
                 }
 
 
 
 
-                int totalSeats = aircraft.totalSeats;  // i do it inside foreach becuase the aircraft created inside it
+                int TotalSeats = aircraft.TotalSeats;  // i do it inside foreach becuase the aircraft created inside it
 
 
-                int confirmedBookings = context.Bookings.Count(b =>b.flightId == f.flightId && b.status == "confirmed"); //  Count only confirmed bookings for this flight
+                int confirmedBookings = context.Bookings.Count(b =>b.FlightId == f.FlightId && b.Status == "confirmed"); //  Count only confirmed bookings for this flight
 
-                decimal totalRevenue = context.Bookings.Where(b => b.flightId == f.flightId && b.status == "confirmed").Sum(b => b.totalPrice); //  Add the prices of confirmed bookings only
+                decimal totalRevenue = context.Bookings.Where(b => b.FlightId == f.FlightId && b.Status == "confirmed").Sum(b => b.TotalPrice); //  Add the prices of confirmed bookings only
 
-                decimal loadFactor = ((decimal)confirmedBookings / totalSeats) * 100;  // Calculate how full the flight is
+                decimal loadFactor = ((decimal)confirmedBookings / TotalSeats) * 100;  // Calculate how full the flight is
 
                 allFlightsRevenue += totalRevenue;  // Add this flight revenue to all flights revenue   نجمع دخل هذه الرحله مع دخل كل الرحلات
 
                 // Display flight report
                 Console.WriteLine("--------------------------------");
-                Console.WriteLine("Flight Code: " + f.flightCode);
+                Console.WriteLine("Flight Code: " + f.FlightCode);
                 Console.WriteLine("Route: " + f.origin + " -> " + f.destination);
                 Console.WriteLine("Confirmed Bookings: " + confirmedBookings);
                 Console.WriteLine("Total Revenue: " + totalRevenue);  // this for each flight

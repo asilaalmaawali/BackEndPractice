@@ -325,7 +325,7 @@ namespace MenuOOPsystem
                 Console.WriteLine("Invalid time format. re-type in this format=> HH:mm ex: 09:30");
                 return;
             }
-
+            
             Console.Write("Enter ticket price: ");
             decimal TicketPrice;
             decimal.TryParse(Console.ReadLine(), out TicketPrice);
@@ -374,7 +374,9 @@ namespace MenuOOPsystem
         {
 
             Console.WriteLine("Enter the Passenger ID");
-            int PassengerId = int.Parse(Console.ReadLine());
+            int PassengerId;
+            int.TryParse(Console.ReadLine(), out PassengerId);
+            
 
 
             Passenger passenger = context.Passengers.FirstOrDefault(p => p.PassengerId == PassengerId);  // check passenger exsits

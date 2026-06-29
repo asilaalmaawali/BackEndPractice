@@ -158,7 +158,7 @@ namespace MenuOOPsystem
             Console.Write("Enter pilot phone: ");
             string phone = Console.ReadLine().Trim();
 
-            if (!phone.StartsWith("+968") || phone.Length != 8)      // validation for phone
+            if (!phone.StartsWith("+968") || phone.Length != 8)      // validation for phone start with (+968) and accept 8 digit
             {
                 Console.WriteLine("Invalid phone number. Please re-type phone must start with +968");
                 return;
@@ -327,7 +327,8 @@ namespace MenuOOPsystem
             }
 
             Console.Write("Enter ticket price: ");
-            decimal TicketPrice = decimal.Parse(Console.ReadLine());
+            decimal TicketPrice;
+            decimal.TryParse(Console.ReadLine(), out TicketPrice);
 
             if (TicketPrice <= 0)   // the price should not be negative or equal zero
             {

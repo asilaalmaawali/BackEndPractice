@@ -30,7 +30,8 @@ namespace University_System_Models.Models
         [Required]
         [MaxLength(50)]
         public string AcademicTitle { get; set; }  // user input
+        public Department Department { get; set; } // Navigation property // like connect both 
 
-
+        public ICollection<Course> Courses { get; set; } // Navigation property  // for many courses
     }
 }

@@ -25,6 +25,8 @@ namespace University_System_Models.Models
 
         [ForeignKey("Instructor")] // name of navigation properties
         public int? HeadInstructorId { get; set; }  //from list // foreign key from Instructor class  // int? (can be null) becuase (no head instructor yet).
+        public Instructor Instructor { get; set; } // Navigation property // like connect both 
+        public ICollection<Course> Courses { get; set; } // Navigation property  // many courses
 
     }
 }

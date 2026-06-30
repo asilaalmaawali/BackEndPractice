@@ -27,11 +27,16 @@ namespace University_System_Models.Models
         [ForeignKey("Department")]
         [Required]
         public int DepartmentId { get; set; }  //from list // foreign key from Department class
+        public Department Department { get; set; } // Navigation property 
+
         [ForeignKey("Instructor")]
         public int? InstructorId { get; set; }   //from list // foreign key from Instructor class // int? (can be null) becuase (a course may be unassigned)
+        public Instructor Instructor { get; set; } // Navigation property (for one)
         [Required]
         [MaxLength(20)]
         public string SemesterOffered { get; set; }  // user input
+
+       
 
     }
 }

@@ -34,6 +34,6 @@ namespace University_System_Models.Models
         [Range(0.0, 4.0)]
         public decimal Gpa { get; set; } = 0.0m; //as default = 0.0  // m = decimal type
 
-
+        public ICollection<Course> Courses { get; set; } // Navigation property  // many courses
     }
 }

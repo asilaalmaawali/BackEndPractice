@@ -1,10 +1,16 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;   // i need to install it to work for me the unique
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using System.Xml.Linq;
 
 namespace University_System_Models.Models
 {
+
+
+
+    [Index(nameof(Email), IsUnique = true)]  // put it outside the class
     internal class Student
     {
         [Key]
@@ -15,7 +21,6 @@ namespace University_System_Models.Models
         public string FullName { get; set; }  // user input
         [Required]
         [MaxLength(150)]
-        //[Index(IsUnique = true)]// for unique
         public string Email { get; set; }  // user input
         [MaxLength(20)]
         public string PhoneNumber { get; set; }  // user input

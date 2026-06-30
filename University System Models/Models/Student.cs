@@ -35,5 +35,7 @@ namespace University_System_Models.Models
         public decimal Gpa { get; set; } = 0.0m; //as default = 0.0  // m = decimal type
 
         public ICollection<Course> Courses { get; set; } // Navigation property  // many courses
+
+        public ICollection<Enrollment> Enrollments { get; set; } // Navigation property  // many Enrollments
     }
 }

@@ -15,9 +15,11 @@ namespace University_System_Models.Models
         [ForeignKey("Student")]
         [Required]
         public int StudentId { get; set; }  //from list // foreign key from Student class
+        public Student Student { get; set; } // navigation property
         [ForeignKey("Course")]
         [Required]
         public int CourseId { get; set; }  //from list // foreign key from Course class
+        public Course Course { get; set; } // navigation property
         [Required]
         public DateTime EnrollmentDate { get; set; } // System generated (because we will use (date.now)method)
         [MaxLength(2)]

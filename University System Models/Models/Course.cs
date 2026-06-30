@@ -38,5 +38,6 @@ namespace University_System_Models.Models
 
         public ICollection<Student> Students { get; set; } // Navigation property  // many students
 
+        public ICollection<Enrollment> Enrollments { get; set; } // Navigation property  // many Enrollments
     }
 }

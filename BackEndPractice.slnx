@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="MenuOOPsystem/MenuOOPsystem.csproj" />
+  <Project Path="University System Models/University System Models.csproj" Id="62cae5c8-d322-4740-81f3-c6e3511c0a29" />
 </Solution>

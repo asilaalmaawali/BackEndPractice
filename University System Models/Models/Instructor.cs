@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace University_System_Models.Models
@@ -11,6 +12,7 @@ namespace University_System_Models.Models
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //i need this because the value is created automatically by the database/system, not entered by the user.
         public int InstructorId { get; set; }  // system generated
         [Required]
         [MaxLength(100)]

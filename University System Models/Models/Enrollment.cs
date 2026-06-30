@@ -10,6 +10,7 @@ namespace University_System_Models.Models
     {
         [Key]
         [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //i need this because the value is created automatically by the database/system, not entered by the user.
         public int EnrollmentId { get; set; }  // system generated
         [ForeignKey("Student")]
         [Required]

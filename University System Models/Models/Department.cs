@@ -1,16 +1,29 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace University_System_Models.Models
 {
+    [Index(nameof(DepartmentName), IsUnique = true)]  // put it outside the class
     internal class Department
     {
+        [Key]
+        [Required]
         public int DepartmentId { get; set; }  // system generated
+        [Required]
+        [MaxLength(100)]
         public string DepartmentName { get; set; }  // user input
+        [MaxLength(50)]
         public string Building { get; set; }  // user input
+        [Required]
+        [Range(0, double.MaxValue)]  //can be 0 or more than 0
         public decimal Budget { get; set; }  // user input
-        public int HeadInstructorId { get; set; }  //from list // foreign key from Instructor class
+
+        [ForeignKey("Instructor")] // name of navigation properties
+        public int? HeadInstructorId { get; set; }  //from list // foreign key from Instructor class  // int? (can be null) becuase (no head instructor yet).
 
     }
 }

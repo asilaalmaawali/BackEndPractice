@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="E-Commerce System Models/E-Commerce System Models.csproj" Id="dd8f1cbb-00ef-4ba4-8199-6a07d4270488" />
   <Project Path="MenuOOPsystem/MenuOOPsystem.csproj" />
   <Project Path="University System Models/University System Models.csproj" Id="62cae5c8-d322-4740-81f3-c6e3511c0a29" />
 </Solution>

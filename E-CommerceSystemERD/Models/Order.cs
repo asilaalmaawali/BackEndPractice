@@ -29,5 +29,7 @@ namespace E_CommerceSystemERD.Models
         [Required]
         [MaxLength(50)]
         public string PaymentMethod { get; set; } //user input
+        public User User { get; set; } // navigation property
+
     }
 }

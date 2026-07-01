@@ -35,5 +35,7 @@ namespace E_CommerceSystemERD.Models
         public DateTime RegistrationDate { get; set; } // sytem generated
         public bool IsActive { get; set; } = true; // as default
 
+
+        public ICollection<Order> Orders { get; set; } //navigation property
     }
 }

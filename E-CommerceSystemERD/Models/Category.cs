@@ -15,7 +15,7 @@ namespace E_CommerceSystemERD.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryId { get; set; } // system generated
         [Required]
-        [MaxLength(50)]
+        [MaxLength(100)]
         public string CategoryName { get; set; } //user input
         
         [MaxLength(500)]

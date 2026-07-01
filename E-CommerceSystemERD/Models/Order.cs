@@ -31,5 +31,7 @@ namespace E_CommerceSystemERD.Models
         public string PaymentMethod { get; set; } //user input
         public User User { get; set; } // navigation property
 
+        public ICollection<ProductOrder> ProductOrder { get; set; } //navigation property  // we need to do list from ProductOrder
+
     }
 }

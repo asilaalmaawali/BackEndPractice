@@ -35,5 +35,8 @@ namespace E_CommerceSystemERD.Models
         public Category Category { get; set; } // navigation property  // for one
 
         public ICollection<Review> Reviews { get; set; } //navigation property // for many  // relation : Product - Review
+
+        public ICollection<ProductOrder> ProductOrder { get; set; } //navigation property  // we need to do list from ProductOrder here.  // becuase we do bridge class so it come now ( OrderItem M to Product 1)
+
     }
 }

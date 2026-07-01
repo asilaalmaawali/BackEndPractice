@@ -11,7 +11,7 @@ namespace E_CommerceSystemERD.Models
         public string ProductName { get; set; } //user input
         public string Description { get; set; } //user input
         public decimal Price { get; set; } //user input
-        public int StockQuantity { get; set; } //calculated
+        public int StockQuantity { get; set; } //user input
         public string ImageUrl { get; set; } //user input
         public int CategoryId { get; set; } // from list // forign key
         public DateTime createdAt { get; set; }   // sytem generated

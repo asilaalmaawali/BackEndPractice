@@ -32,5 +32,6 @@ namespace E_CommerceSystemERD.Models
         public DateTime createdAt { get; set; }   // sytem generated
         public bool isAvailable { get; set; } = true; // as default
 
+        public Category Category { get; set; } // navigation property  // for one
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace E_CommerceSystemERD.Models
@@ -7,12 +9,23 @@ namespace E_CommerceSystemERD.Models
     internal class Review
     {
 
-        public int reviewId { get; set; } // system generated
-        public int userId { get; set; } //from list //forign key
-        public int productId { get; set; }  //from list //forign key
-        public int rating { get; set; } //user input
-        public string comment { get; set; } // user input
-        public DateTime reviewDate { get; set; } // system generated
+        [Key]
+        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ReviewId { get; set; } // system generated
+        [Required]
+        [ForeignKey("User")]
+        public int UserId { get; set; } //from list //forign key
+        [Required]
+        [ForeignKey("Product")]
+        public int ProductId { get; set; }  //from list //forign key
+        [Required]
+        [Range(1,5)]
+        public int Rating { get; set; } //user input
+        [MaxLength(1000)]
+        public string? Comment { get; set; } // user input
+        [Required]
+        public DateTime ReviewDate { get; set; } // system generated
 
     }
 }

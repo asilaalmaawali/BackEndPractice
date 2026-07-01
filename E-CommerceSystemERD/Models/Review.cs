@@ -27,5 +27,7 @@ namespace E_CommerceSystemERD.Models
         [Required]
         public DateTime ReviewDate { get; set; } // system generated
 
+        public Product Product { get; set; } // navigation property // for one // relation : Product - Review
+        public User User { get; set; } // navigation property // for one // relation : User - Review
     }
 }

@@ -33,5 +33,7 @@ namespace E_CommerceSystemERD.Models
         public bool isAvailable { get; set; } = true; // as default
 
         public Category Category { get; set; } // navigation property  // for one
+
+        public ICollection<Review> Reviews { get; set; } //navigation property // for many  // relation : Product - Review
     }
 }

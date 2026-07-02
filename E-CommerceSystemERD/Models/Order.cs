@@ -6,6 +6,7 @@ using System.Text;
 
 namespace E_CommerceSystemERD.Models
 {
+    [Table("Orders")]
     internal class Order
     {
         [Key]

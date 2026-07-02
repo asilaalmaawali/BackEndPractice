@@ -7,6 +7,7 @@ using System.Text;
 
 namespace E_CommerceSystemERD.Models
 {
+    [Table("Users")]
     [Index(nameof(UserName), IsUnique = true)]  // for unique , outside the class
     [Index(nameof(Email), IsUnique = true)]  // for unique , outside the class
     internal class User

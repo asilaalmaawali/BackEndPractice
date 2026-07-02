@@ -7,6 +7,7 @@ using System.Text;
 
 namespace E_CommerceSystemERD.Models
 {
+    [Table("Categorys")]
     [Index(nameof(CategoryName), IsUnique = true)]  // for unique , outside the class
     internal class Category
     {

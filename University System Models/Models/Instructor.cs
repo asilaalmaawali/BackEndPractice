@@ -11,7 +11,6 @@ namespace University_System_Models.Models
     internal class Instructor
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //i need this because the value is created automatically by the database/system, not entered by the user.
         public int InstructorId { get; set; }  // system generated
         [Required]
@@ -25,7 +24,7 @@ namespace University_System_Models.Models
         [Required]
         public DateTime HireDate { get; set; }  // System generated (because we will use (date.now)method)
         [Required]
-        [Range(0.01, double.MaxValue)]  // to be more than 0
+        [Range(typeof(decimal), "0.01", "100000")] // Uses decimal type to validate that Salary is greater than 0
         public decimal Salary { get; set; }  // Calculated
         [Required]
         [MaxLength(50)]

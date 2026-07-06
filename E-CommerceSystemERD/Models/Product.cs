@@ -10,7 +10,6 @@ namespace E_CommerceSystemERD.Models
     internal class Product
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ProductId { get; set; } // sytem generated
         [Required]

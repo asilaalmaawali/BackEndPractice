@@ -11,7 +11,6 @@ namespace E_CommerceSystemERD.Models
     {
 
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ReviewId { get; set; } // system generated
         [Required]

@@ -10,7 +10,6 @@ namespace E_CommerceSystemERD.Models
     internal class Order
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderId  { get; set; } // system generated
         [ForeignKey("User")]

@@ -13,7 +13,6 @@ namespace E_CommerceSystemERD.Models
     internal class User
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }  // sytem generated
         [Required]

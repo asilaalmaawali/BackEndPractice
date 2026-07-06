@@ -12,7 +12,6 @@ namespace E_CommerceSystemERD.Models
     internal class Category
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CategoryId { get; set; } // system generated
         [Required]

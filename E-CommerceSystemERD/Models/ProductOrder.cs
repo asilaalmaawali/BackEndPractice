@@ -9,6 +9,9 @@ namespace E_CommerceSystemERD.Models
     [Table("ProductOrder")]
     internal class ProductOrder
     {
+
+
+
         [Required]
         [ForeignKey("Order")]
         public int OrderID { get; set; }
@@ -21,8 +24,7 @@ namespace E_CommerceSystemERD.Models
 
         public Product Product { get; set; } // navigation property // becuase we do bridge class so it come now ( OrderItem M to Product 1)
 
-
-
+      
 
     }
 }

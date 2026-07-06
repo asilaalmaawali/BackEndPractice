@@ -9,7 +9,9 @@ namespace E_CommerceSystemERD.Models
     [Table("ProductOrder")]
     internal class ProductOrder
     {
-
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ProductOrderId { get; set; }              // system generated
 
 
         [Required]
@@ -22,7 +24,9 @@ namespace E_CommerceSystemERD.Models
 
         public Product Product { get; set; } // navigation property // becuase we do bridge class so it come now ( OrderItem M to Product 1)
 
-      
+        [Required]
+        [Range(1, 999)]
+        public int quantity { get; set; }                 // user input //  relationship attribute
 
     }
 }

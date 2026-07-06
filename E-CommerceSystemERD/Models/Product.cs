@@ -28,11 +28,13 @@ namespace E_CommerceSystemERD.Models
         [Required]
         [ForeignKey("Category")]
         public int CategoryId { get; set; } // from list // forign key
+        public Category Category { get; set; } // navigation property  // for one
+
         [Required]
         public DateTime createdAt { get; set; }   // sytem generated
         public bool isAvailable { get; set; } = true; // as default
 
-        public Category Category { get; set; } // navigation property  // for one
+       
 
         public ICollection<Review> Reviews { get; set; } //navigation property // for many  // relation : Product - Review
 

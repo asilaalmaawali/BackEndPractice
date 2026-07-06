@@ -16,9 +16,13 @@ namespace E_CommerceSystemERD.Models
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; } //from list //forign key
+        public User User { get; set; } // navigation property // for one // relation : User - Review
+
         [Required]
         [ForeignKey("Product")]
         public int ProductId { get; set; }  //from list //forign key
+        public Product Product { get; set; } // navigation property // for one // relation : Product - Review
+
         [Required]
         [Range(1,5)]
         public int Rating { get; set; } //user input
@@ -27,7 +31,7 @@ namespace E_CommerceSystemERD.Models
         [Required]
         public DateTime ReviewDate { get; set; } // system generated
 
-        public Product Product { get; set; } // navigation property // for one // relation : Product - Review
-        public User User { get; set; } // navigation property // for one // relation : User - Review
+      
+       
     }
 }

@@ -15,7 +15,6 @@ namespace University_System_Models.Models
     internal class Student
     {
         [Key]
-        [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] //i need this because the value is created automatically by the database/system, not entered by the user.
         public int StudentId { get; set; }  // system generated
         [Required]

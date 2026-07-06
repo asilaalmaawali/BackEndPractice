@@ -19,6 +19,7 @@ namespace University_System_Models.Models
         [Required]
         public int CourseId { get; set; }  //from list // foreign key from Course class
         public Course Course { get; set; } // navigation property
+
         [Required]
         public DateTime EnrollmentDate { get; set; } // System generated (because we will use (date.now)method)
         [MaxLength(2)]

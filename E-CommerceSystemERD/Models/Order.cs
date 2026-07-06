@@ -20,7 +20,7 @@ namespace E_CommerceSystemERD.Models
         [Required]
         public DateTime OrderDate { get; set; } // system generated
         [Required]
-        [Range(0, double.MaxValue)]
+        [Range(typeof(decimal), "0", "100000")] // Range validation for decimal values , i need to mention "type of" because the range most uses with double si i need to specify that i want type of decimal
         public decimal TotalAmount { get; set; } // calculated
         [Required]
         [MaxLength(30)]

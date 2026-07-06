@@ -20,7 +20,7 @@ namespace University_System_Models.Models
         [MaxLength(50)]
         public string Building { get; set; }  // user input
         [Required]
-        [Range(0, double.MaxValue)]  //can be 0 or more than 0
+        [Range(typeof(decimal), "0", "100000")] // Range validation for decimal values , i need to mention "type of" because the range most uses with double si i need to specify that i want type of decimal
         public decimal Budget { get; set; }  // user input
 
         [ForeignKey("Instructor")] // name of navigation properties

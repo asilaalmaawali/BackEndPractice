@@ -18,7 +18,7 @@ namespace E_CommerceSystemERD.Models
         [MaxLength(1000)]
         public string? Description { get; set; } //user input
         [Required]
-        [Range(0, double.MaxValue)] 
+        [Range(typeof(decimal), "0", "100000")] // Range validation for decimal values , i need to mention "type of" because the range most uses with double si i need to specify that i want type of decimal
         public decimal Price { get; set; } //user input
         [Required]
         [Range(typeof(decimal), "0", "100000")] // Range validation for decimal values , i need to mention "type of" because the range most uses with double si i need to specify that i want type of decimal

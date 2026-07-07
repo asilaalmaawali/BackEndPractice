@@ -226,3 +226,4 @@ namespace E_CommerceSystemERD.Migrations
         }
     }
 }
+// Update-Database => Applies the migration and create the ECommerceDB database in SQL Server and add all tables.

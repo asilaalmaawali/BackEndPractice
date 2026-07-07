@@ -2,11 +2,12 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.Common;
+
 using System.Text;
 
 namespace E_CommerceSystemERD
 {
+
     internal class ECommerceContext : DbContext  // Inherits from DbContext to connect the models with the database.
     {
 
@@ -23,13 +24,6 @@ namespace E_CommerceSystemERD
         {
             options.UseSqlServer("Server=localhost;Database=ECommerceDB;Trusted_Connection=True;TrustServerCertificate=True;");   // // Connects the ECommerce system to the SQL Server database
         }
-
-
-
-
-
-
-
 
 
     }

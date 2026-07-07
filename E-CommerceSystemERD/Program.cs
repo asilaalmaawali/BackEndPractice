@@ -1,7 +1,134 @@
-﻿namespace E_CommerceSystemERD
+﻿using E_CommerceSystemERD.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace E_CommerceSystemERD
 {
     internal class Program
     {
+
+        public static ECommerceContext context = new ECommerceContext();
+        public static void RegisterUser()
+        {
+
+            Console.WriteLine("===== Register New User =====");
+
+            Console.Write("Enter user name: ");
+            string name = Console.ReadLine().Trim();
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                Console.WriteLine("User name cannot be empty"); 
+                return;
+            }
+
+            Console.Write("Enter email: ");
+            string email = Console.ReadLine().Trim();
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                Console.WriteLine("Email cannot be empty");
+                return;
+            }
+
+            if (!email.Contains("@") || !email.EndsWith(".com"))  // here to validate should cantain this format
+            {
+                Console.WriteLine("Email must contain @ and end with .com");
+                return;
+            }
+
+            Console.Write("Enter password: ");
+            string password = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                Console.WriteLine("Password cannot be empty");
+                return;
+            }
+
+            if (password.Length < 8)
+            {
+                Console.WriteLine("Password must be at least 8 characters");
+                return;
+            }
+
+            if (!password.Any(char.IsDigit))  // here to validate should have at least one number
+            {
+                Console.WriteLine("Password must contain at least one number");
+                return;
+            }
+
+            string passwordHash = password;  //  // In a real system this would be hashed — stored as plain text here for demo
+
+
+            Console.Write("Enter full name: ");
+            string fullName = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(fullName))
+            {
+                Console.WriteLine("Full name cannot be empty");
+                return;
+            }
+
+            if (fullName.Length < 3)
+            {
+                Console.WriteLine("Full name must be at least 3 characters");
+                return;
+            }
+
+            Console.Write("Enter phone number (optional, press Enter to skip): ");  // it optional can be null
+            string phone = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(phone))  // if not null
+            {
+
+                if (!phone.StartsWith("+968") || phone.Length != 12 || !phone.Substring(4).All(char.IsDigit))  // it should start with (+968) and follow with 8 digits and be all number (.All(char.IsDigit))
+                {
+                    Console.WriteLine("Phone number must start with +968 followed by 8 digits");
+                    return;
+                }
+
+
+            }
+
+
+            Console.Write("Enter address (optional, press Enter to skip): ");
+            string address = Console.ReadLine();
+
+            if (!string.IsNullOrWhiteSpace(address) && address.Length < 4)
+            {
+                Console.WriteLine("Address must be at least 4 characters.");
+                return;
+            }
+
+            // int userId = context.Users.Count() + 1; // Not needed
+            // no need to do ID because database will create the UserId automatically when we save.
+
+            User user = new User
+            {
+                UserName = name,
+                FullName = fullName,
+                Email = email,
+                PasswordHash = passwordHash,
+                PhoneNumber = phone,
+                Address = address,
+                RegistrationDate = DateTime.Now,
+                IsActive = true
+            };
+
+            context.Users.Add(user); // Adds the user to the database
+            context.SaveChanges(); // Saves and generates UserId automatically
+
+            Console.WriteLine("User registered successfully");
+            Console.WriteLine("New User ID: " + user.UserId);
+
+
+        }
+
+
+
+
+
+
         static void Main(string[] args)
         {
 
@@ -28,7 +155,7 @@
                 switch (option)
                 {
                     case 1:
-                        
+                        RegisterUser();
                         break;
                     case 2:
                         

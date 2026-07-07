@@ -124,12 +124,66 @@ namespace E_CommerceSystemERD
 
         }
 
+        public static void AddProduct()
+        {
+            Console.WriteLine("===== Add New Product =====");
+
+            List<Category> categories = context.Categories.ToList();  // get all category records from the database and stores them in a list
+
+            Console.WriteLine("Available Categories:");  // to see available categories
+            foreach (Category category in categories)
+            {
+                Console.WriteLine(category.CategoryId + " - " + category.CategoryName);
+            }
+
+
+            Console.Write("Enter category ID: ");
+            int categoryId;
+            int.TryParse(Console.ReadLine(), out categoryId);
+   
+
+            Console.Write("Enter product name: ");
+            string productName = Console.ReadLine();
+
+            Console.Write("Enter product description: ");
+            string description = Console.ReadLine();
+
+            Console.Write("Enter product price: ");
+            decimal price;
+            decimal.TryParse(Console.ReadLine(), out price);
+
+            Console.Write("Enter stock quantity: ");
+
+
+            int stockQuantity = int.Parse(Console.ReadLine());
+
+
+            Product product = new Product
+            {
+                ProductName = productName,
+                Description = description,
+                Price = price,
+                StockQuantity = stockQuantity,
+                CategoryId = categoryId,
+                createdAt = DateTime.Now,
+                isAvailable = true
+            };
+
+            // no need to do ID here 
+            context.Products.Add(product); // Adds the new product to the database
+            context.SaveChanges(); // Saves changes and generates ProductId automatically
+
+            Console.WriteLine("Product added successfully");
+            Console.WriteLine("New Product ID: " + product.ProductId);
+
+
+
+        }
 
 
 
 
-
-        static void Main(string[] args)
+            static void Main(string[] args)
         {
 
 

@@ -539,7 +539,42 @@ namespace E_CommerceSystemERD
 
         }
 
+        public static void GetCategoryWithAllProducts()
+        {
 
+
+            Console.WriteLine("===== Category with All Its Products =====");
+
+            Console.Write("Enter Category ID: ");
+            int categoryId = int.Parse(Console.ReadLine());
+
+            Category category = context.Categories.Include(c => c.Products) // Loads the category with its related products in one query
+                                                  .FirstOrDefault(c => c.CategoryId == categoryId); // Finds the selected category by ID
+
+            if (category == null)
+            {
+                Console.WriteLine("Category not found");
+                return;
+            }
+
+
+            Console.WriteLine("Category Name: " + category.CategoryName);
+            Console.WriteLine("Description: " + category.Description);
+
+            Console.WriteLine("Products:    ");
+
+            foreach (Product product in category.Products) // Displays products already loaded by Include
+            {
+                Console.WriteLine("-------- list all its products--------");
+                Console.WriteLine("Product ID: " + product.ProductId);
+                Console.WriteLine("Product Name: " + product.ProductName);
+                Console.WriteLine("Price: " + product.Price);
+                Console.WriteLine("Stock Quantity: " + product.StockQuantity);
+                Console.WriteLine("Available: " + product.isAvailable);
+            }
+
+
+        }
 
 
 
@@ -599,6 +634,9 @@ namespace E_CommerceSystemERD
                         break;
                     case 9: //09 Filter Products by Category and Price Range
                         FilterProducts();
+                        break;
+                    case 10: //10 Get Category with All Its Products (Include)
+                        GetCategoryWithAllProducts();
                         break;
                     case 0:
                         exit = true; break;

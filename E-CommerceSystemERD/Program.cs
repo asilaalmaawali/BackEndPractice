@@ -180,10 +180,71 @@ namespace E_CommerceSystemERD
 
         }
 
+        public static void ProductReview()
+        {
+
+            Console.WriteLine("===== Add Product Review =====");
+
+            Console.WriteLine("Available Users: ");
+
+            List<User> users = context.Users.ToList(); // get all users records from the database and stores them in a list
+
+            foreach (User u in users)  // to view all the users
+            {
+
+                Console.WriteLine(u.UserId + " - " + u.FullName);
+
+            }
+
+            Console.Write("Enter user ID: ");
+            int userId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Available Products: ");
+
+            List<Product> products = context.Products.ToList();  // get all products records from the database and stores them in a list
 
 
 
-            static void Main(string[] args)
+            foreach (Product p in products)  // to view all the products
+            {
+
+                Console.WriteLine(p.ProductId + " - " + p.ProductName);
+
+            }
+
+            Console.Write("Enter product ID: ");
+            int ProductId = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter rating from 1 to 5: ");
+            int rating = int.Parse(Console.ReadLine());
+
+            if (rating < 1 || rating > 5)   //(Range for rating from 1 to 5)
+            {
+                Console.WriteLine("Rating must be between 1 and 5");
+                return;
+            }
+
+            Console.Write("Enter comment (optional, press Enter to skip): ");  // its optinal can be null
+            string comment = Console.ReadLine();
+
+            Review review = new Review{
+            
+            UserId = userId,
+            ProductId = ProductId,
+            Rating = rating,
+            Comment = comment,
+            ReviewDate = DateTime.Now 
+
+            };
+
+            
+            context.Reviews.Add(review); // Adds the new review to the database
+            context.SaveChanges(); // Saves changes in the database
+        }
+
+
+
+        static void Main(string[] args)
         {
 
 
@@ -208,17 +269,17 @@ namespace E_CommerceSystemERD
 
                 switch (option)
                 {
-                    case 1:
+                    case 1:  // 01 Register a New User
                         RegisterUser();
                         break;
-                    case 2:
-                        
+                    case 2: // 02 Add a New Product to a Category
+                        AddProduct();
                         break;
                     case 3:
                         
                         break;
                     case 4:
-                        
+                        ProductReview();
                         break;
                     case 5:
                        

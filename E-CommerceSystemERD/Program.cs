@@ -287,6 +287,56 @@ namespace E_CommerceSystemERD
 
 
         }
+
+        public static void CancelOrder()
+        {
+
+            Console.WriteLine(" === Cancel an Order ===");
+
+            Console.Write("Enter Order ID: ");
+            int orderId = int.Parse(Console.ReadLine());
+
+            Order order = context.Orders.FirstOrDefault(o => o.OrderId == o.OrderId); //  Fetch the order by ID using FirstOrDefault()
+
+            if (order == null)
+            {
+                Console.WriteLine("Order not found");
+                return;
+            }
+
+            if (order.Status == "Cancelled")
+            {
+                Console.WriteLine("This order is already cancelled");
+                return;
+            }
+
+            // Load all OrderItems for that order from context.ProductOrder
+            List<ProductOrder> orderItems = context.ProductOrders.Where(po => po.OrderID == orderId)
+                                                                 .ToList();
+
+            foreach (ProductOrder item in orderItems)
+            {
+                Product product = context.Products.FirstOrDefault(p => p.ProductId == item.ProductId); // Finds the product
+
+                if (product != null)
+                {
+                    product.StockQuantity += item.quantity; // Restores the product stock quantity
+                }
+            }
+
+            order.Status = "Cancelled"; // Changes the order status to Cancelled
+
+            context.SaveChanges(); // Saves the updated order status and restored stock in the database
+
+            Console.WriteLine("Order cancelled successfully");
+        }
+
+
+
+
+
+
+
         public static void DeleteReview()
         {
 
@@ -537,8 +587,8 @@ namespace E_CommerceSystemERD
                     case 5:  // 05 Update Product Price and Availability
                         UpdateProduct();
                         break;
-                    case 6:
-                       
+                    case 6: //06 Cancel an Order
+                        CancelOrder();
                         break;
 
                     case 7: // 07 Delete a Review

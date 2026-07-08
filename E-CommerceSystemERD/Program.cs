@@ -374,7 +374,119 @@ namespace E_CommerceSystemERD
 
         }
 
-            static void Main(string[] args)
+
+        public static void PlaceOrder()
+        {
+
+            Console.WriteLine("===== Place an Order =====");
+            // One user can place many orders But each order belongs to one user , for that we need to see users and link one to order
+            //we display users first because the system needs to know which customer is placing the order.
+            List<User> users = context.Users.ToList();
+
+            Console.WriteLine("Available Users:");
+            foreach (User u in users)
+            {
+                Console.WriteLine(u.UserId + " - " + u.FullName);
+            }
+
+            Console.Write("Enter product ID: ");
+            int UserID = int.Parse(Console.ReadLine());
+
+            User SelectedUser = context.Users.FirstOrDefault(u => u.UserId == UserID); // Finds the selected user by UserId
+
+            if (SelectedUser == null)
+            {
+                Console.WriteLine("User not found.");
+                return;
+            }
+
+            Order order = new Order  // if there is User ID then store this database
+            {
+                UserId = UserID,
+                OrderDate = DateTime.Now,
+                TotalAmount = 0
+            };
+
+            // do this first to get Order ID:
+            context.Orders.Add(order); // Adds the order first to get OrderId
+            context.SaveChanges(); // Saves the order and generates OrderId
+
+            decimal totalAmount = 0;
+            bool AddMultipleProduct = true;
+
+            while (AddMultipleProduct)
+            {
+                Console.WriteLine("Available Products:");
+
+                List<Product> products = context.Products.ToList();  // to get all products
+
+                foreach (Product product in products)
+                {
+                    Console.WriteLine(product.ProductId + " - " + product.ProductName +
+                                      " | Price: " + product.Price +
+                                      " | Stock: " + product.StockQuantity);
+                }
+
+                Console.Write("Enter Product ID: ");
+                int productId = int.Parse(Console.ReadLine());
+
+                Product selectedProduct = context.Products.FirstOrDefault(p => p.ProductId == productId);
+
+                if (selectedProduct == null)
+                {
+                    Console.WriteLine("Product not found");
+                    continue;
+                }
+
+                Console.Write("Enter quantity: ");
+                int quantity = int.Parse(Console.ReadLine());
+
+                if (quantity > selectedProduct.StockQuantity)
+                {
+                    Console.WriteLine("Not enough stock available.");
+                    continue;
+                }
+
+                ProductOrder orderItem = new ProductOrder
+                {
+                    OrderID = order.OrderId,
+                    ProductId = selectedProduct.ProductId,
+                    quantity = quantity,
+                    UnitPrice = selectedProduct.Price
+                };
+
+                context.ProductOrders.Add(orderItem); // Adds product details to the bridge table
+
+                selectedProduct.StockQuantity -= quantity; // Reduces product stock quantity
+
+                totalAmount += selectedProduct.Price * quantity; // Adds item total to order total
+
+                Console.Write("Do you want to add another product? (yes/no): ");
+                string AddMore = Console.ReadLine().ToLower();
+
+
+                if (AddMore != "yes")  // if say no so will stopped and AddMultipleProduct be false
+                {
+                    AddMultipleProduct = false;
+                }
+
+                order.TotalAmount = totalAmount; // Updates the final order total
+                context.SaveChanges(); // Saves all order changes(order items, stock changes, and total amount) to the database
+
+                Console.WriteLine("Order placed successfully");
+                Console.WriteLine("Order ID: " + order.OrderId);
+                Console.WriteLine("Total Amount: " + order.TotalAmount);
+
+            }
+
+            }
+
+
+
+
+
+
+        static void Main(string[] args)
         {
 
 
@@ -408,8 +520,8 @@ namespace E_CommerceSystemERD
                     case 2: // 02 Add a New Product to a Category
                         AddProduct();
                         break;
-                    case 3:
-                        
+                    case 3:  // 03 Place an Order
+                        PlaceOrder();
                         break;
                     case 4:    // 04 Write a Product Review
                         ProductReview();

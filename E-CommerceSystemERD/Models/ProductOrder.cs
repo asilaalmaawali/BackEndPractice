@@ -28,5 +28,8 @@ namespace E_CommerceSystemERD.Models
         [Range(1, 999)]
         public int quantity { get; set; }                 // user input //  relationship attribute
 
+        [Required]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal UnitPrice { get; set; }            // calculated 
     }
 }

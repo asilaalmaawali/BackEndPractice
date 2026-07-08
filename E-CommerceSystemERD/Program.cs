@@ -389,7 +389,7 @@ namespace E_CommerceSystemERD
                 Console.WriteLine(u.UserId + " - " + u.FullName);
             }
 
-            Console.Write("Enter product ID: ");
+            Console.Write("Enter User ID: ");
             int UserID = int.Parse(Console.ReadLine());
 
             User SelectedUser = context.Users.FirstOrDefault(u => u.UserId == UserID); // Finds the selected user by UserId
@@ -438,8 +438,15 @@ namespace E_CommerceSystemERD
                     continue;
                 }
 
+
                 Console.Write("Enter quantity: ");
                 int quantity = int.Parse(Console.ReadLine());
+
+                if (quantity <= 0)
+                {
+                    Console.WriteLine("Quantity must be more than 0.");
+                    continue;
+                }
 
                 if (quantity > selectedProduct.StockQuantity)
                 {
@@ -473,13 +480,14 @@ namespace E_CommerceSystemERD
                 order.TotalAmount = totalAmount; // Updates the final order total
                 context.SaveChanges(); // Saves all order changes(order items, stock changes, and total amount) to the database
 
-                Console.WriteLine("Order placed successfully");
-                Console.WriteLine("Order ID: " + order.OrderId);
-                Console.WriteLine("Total Amount: " + order.TotalAmount);
-
+     
             }
+            //should be out the loop
+            Console.WriteLine("Order placed successfully");
+            Console.WriteLine("Order ID: " + order.OrderId);
+            Console.WriteLine("Total Amount: " + order.TotalAmount);
 
-            }
+        }
 
 
 

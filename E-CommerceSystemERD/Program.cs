@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.Design;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+using static System.Net.WebRequestMethods;
 
 namespace E_CommerceSystemERD
 {
@@ -371,13 +372,7 @@ namespace E_CommerceSystemERD
             }
 
 
-
-
         }
-
-
-
-
 
             static void Main(string[] args)
         {
@@ -396,6 +391,9 @@ namespace E_CommerceSystemERD
                 Console.WriteLine(" 4.  Write a Product Review");
                 Console.WriteLine(" 5.  Update Product Price and Availability");
                 Console.WriteLine(" 6.  Cancel an Order");
+                Console.WriteLine(" 7.  Delete a Review");
+                Console.WriteLine(" 8.  View All Products ");
+                Console.WriteLine(" 9.  Filter Products by Category and Price Range ");
                 Console.WriteLine(" 0. Exit");
                 Console.WriteLine("========================================");
                 Console.Write("Select option: ");
@@ -420,16 +418,18 @@ namespace E_CommerceSystemERD
                         UpdateProduct();
                         break;
                     case 6:
-                        DeleteReview();
+                       
                         break;
 
-                    case 7:
-
+                    case 7: // 07 Delete a Review
+                        DeleteReview();
                         break;
                     case 8: // 08 View All Products (Get All)
                         ViewAllProduct();
                         break;
-                        
+                    case 9: //09 Filter Products by Category and Price Range
+                        FilterProducts();
+                        break;
                     case 0:
                         exit = true; break;
                     default:
@@ -442,6 +442,7 @@ namespace E_CommerceSystemERD
                     Console.WriteLine("Press any key to continue...");
                     Console.ReadKey();
                     Console.Clear();
+                    return;
                 }
             }
         }

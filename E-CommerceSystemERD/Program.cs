@@ -648,10 +648,23 @@ namespace E_CommerceSystemERD
                 Console.WriteLine(" 7.  Delete a Review");
                 Console.WriteLine(" 8.  View All Products ");
                 Console.WriteLine(" 9.  Filter Products by Category and Price Range ");
+                Console.WriteLine(" 10. Get Category with All Its Products ");
+                Console.WriteLine(" 11. View Order History with Full Details ");
                 Console.WriteLine(" 0. Exit");
                 Console.WriteLine("========================================");
                 Console.Write("Select option: ");
 
+
+
+
+                /*
+                 * case 10: //10 Get Category with All Its Products (Include)
+                        GetCategoryWithAllProducts();
+                        break;
+                    case 11: //11 View Order History with Full Details
+                        ViewOrderHistory();
+                        break;
+                 */
                 int option = int.Parse(Console.ReadLine());
 
                 switch (option)

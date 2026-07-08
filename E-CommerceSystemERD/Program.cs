@@ -1,5 +1,6 @@
 ﻿using E_CommerceSystemERD.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.Design;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace E_CommerceSystemERD
@@ -306,8 +307,36 @@ namespace E_CommerceSystemERD
                 Console.WriteLine("Review not found");
             }
 
+        }
+
+        public static void ViewAllProduct()
+        {
+
+            Console.WriteLine("=====  View All Products  =====");
+
+            List<Product> products = context.Products.ToList(); //// Gets all products from the database
+
+            foreach (Product p in products)
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Product ID: " + p.ProductId);
+                Console.WriteLine("Product Name: " + p.ProductName);
+                Console.WriteLine("Price: " + p.Price);
+                Console.WriteLine("Stock Quantity: " + p.StockQuantity);
+                Console.WriteLine("Available: " + p.isAvailable);
+            }
+
+            if (products.Count == 0) // to know if there no product display there is no product
+            {
+                Console.WriteLine("No products found");
+                return;
+            }
+
+
 
         }
+
+
 
         static void Main(string[] args)
         {
@@ -356,6 +385,10 @@ namespace E_CommerceSystemERD
                     case 7:
 
                         break;
+                    case 8: // 08 View All Products (Get All)
+                        ViewAllProduct();
+                        break;
+                        
                     case 0:
                         exit = true; break;
                     default:

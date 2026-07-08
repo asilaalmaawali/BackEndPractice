@@ -1,5 +1,7 @@
 ﻿using E_CommerceSystemERD.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Identity.Client;
 using System.ComponentModel.Design;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static System.Net.WebRequestMethods;
@@ -573,11 +575,58 @@ namespace E_CommerceSystemERD
                 Console.WriteLine("Available: " + product.isAvailable);
             }
 
-
+           
         }
 
+        public static void ViewOrderHistory()
+        {
+
+            Console.WriteLine("=====  View Order History with Full Details =====");
+
+            Console.Write("Enter User ID: ");
+            int UserID = int.Parse(Console.ReadLine());
+
+            User user = context.Users.Include(u => u.Orders) // Loads the user orders
+                .ThenInclude(o => o.ProductOrder) // Loads the order items inside each order
+                .ThenInclude(i => i.Product) // Loads product details for each order item
+                .FirstOrDefault(u => u.UserId == UserID); // finds the selected user
+
+            if (user == null)
+            {
+                Console.WriteLine("User not found");
+                return;
+            }
+
+            Console.WriteLine("Customer: " + user.FullName);
+
+            //  Loop through user.Orders and inside each order loop through order.OrderItems:
 
 
+            foreach (Order order in user.Orders) // Loops through all orders for this user
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Order ID: " + order.OrderId);
+                Console.WriteLine("Order Date: " + order.OrderDate);
+                Console.WriteLine("Status: " + order.Status);
+                Console.WriteLine("Total Amount: " + order.TotalAmount);
+
+                Console.WriteLine("Products:");
+
+                foreach (ProductOrder item in order.ProductOrder) // Loops through all products in this order
+                {
+                    Console.WriteLine("Product Name: " + item.Product.ProductName);
+                    Console.WriteLine("Quantity: " + item.quantity);
+                    Console.WriteLine("Unit Price: " + item.UnitPrice);
+                    Console.WriteLine("Item Total: " + (item.UnitPrice * item.quantity));
+                    Console.WriteLine();
+                }
+
+
+
+
+
+            }
+        }
 
         static void Main(string[] args)
         {
@@ -637,6 +686,9 @@ namespace E_CommerceSystemERD
                         break;
                     case 10: //10 Get Category with All Its Products (Include)
                         GetCategoryWithAllProducts();
+                        break;
+                    case 11: //11 View Order History with Full Details
+                        ViewOrderHistory();
                         break;
                     case 0:
                         exit = true; break;

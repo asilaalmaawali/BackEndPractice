@@ -285,7 +285,29 @@ namespace E_CommerceSystemERD
 
 
         }
+        public static void DeleteReview()
+        {
 
+            Console.WriteLine("===== Delete a Review =====");
+
+            Console.Write("Enter Review ID: ");
+            int ReviewId = int.Parse(Console.ReadLine());
+
+            Review review = context.Reviews.FirstOrDefault(r => r.ReviewId == ReviewId);
+
+            if (review != null)
+            {
+                context.Reviews.Remove(review);
+                context.SaveChanges();
+                Console.WriteLine("Review deleted successfully");
+            }
+            else
+            {
+                Console.WriteLine("Review not found");
+            }
+
+
+        }
 
         static void Main(string[] args)
         {
@@ -328,7 +350,11 @@ namespace E_CommerceSystemERD
                         UpdateProduct();
                         break;
                     case 6:
-                        
+                        DeleteReview();
+                        break;
+
+                    case 7:
+
                         break;
                     case 0:
                         exit = true; break;

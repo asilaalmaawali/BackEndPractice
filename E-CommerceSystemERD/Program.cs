@@ -1,5 +1,6 @@
 ﻿using E_CommerceSystemERD.Models;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace E_CommerceSystemERD
 {
@@ -242,6 +243,48 @@ namespace E_CommerceSystemERD
             context.SaveChanges(); // Saves changes in the database
         }
 
+        public static void UpdateProduct()
+        {
+
+            Console.WriteLine("===== Update Product =====");
+
+            Console.Write("Enter product ID: ");
+            int productId = int.Parse(Console.ReadLine());
+
+            Product product = context.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product == null) {
+                Console.WriteLine("Product not found");
+                return;
+            }
+            // before update
+
+            Console.WriteLine(" === Current infrormation ===");
+            Console.WriteLine("Current Product: " + product.ProductName);
+            Console.WriteLine("Current Price: " + product.Price);
+            Console.WriteLine("Current Availability: " + product.isAvailable);
+
+            Console.Write("Enter updated price : ");
+            decimal Updatedprice;
+            decimal.TryParse(Console.ReadLine(), out Updatedprice);
+
+            if (Updatedprice <= 0)  // validation should be more than 0
+            {
+                Console.WriteLine("Price must be greater than 0");
+                return;
+            }
+
+            Console.Write("Is the product available? (true/false): ");
+            bool newAvailability = bool.Parse(Console.ReadLine());
+
+            product.Price = Updatedprice; // Updates the product price
+            product.isAvailable = newAvailability; // Updates the product availability status
+
+            context.SaveChanges(); // Saves the updated product data in the database // EF Core detects the change and sends an UPDATE
+
+            Console.WriteLine("Product updated successfully");
+
+
+        }
 
 
         static void Main(string[] args)
@@ -278,11 +321,11 @@ namespace E_CommerceSystemERD
                     case 3:
                         
                         break;
-                    case 4:
+                    case 4:    // 04 Write a Product Review
                         ProductReview();
                         break;
-                    case 5:
-                       
+                    case 5:  // 05 Update Product Price and Availability
+                        UpdateProduct();
                         break;
                     case 6:
                         

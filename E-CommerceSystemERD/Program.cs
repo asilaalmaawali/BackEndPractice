@@ -331,6 +331,45 @@ namespace E_CommerceSystemERD
                 Console.WriteLine("No products found");
                 return;
             }
+        }
+        public static void FilterProducts()
+        {
+
+
+            Console.WriteLine("===== Filter Products by Category and Price Range =====");
+
+            Console.Write("Enter Category ID: ");
+            int CategoryId = int.Parse(Console.ReadLine());
+
+            Console.Write("Enter minimum price: ");
+            decimal minPrice;
+            decimal.TryParse(Console.ReadLine(), out minPrice);
+
+            Console.Write("Enter maximum price: ");
+            decimal maxPrice;
+            decimal.TryParse(Console.ReadLine(), out maxPrice);
+
+            // filter the priduct by searching for ID and 
+            List<Product> products = context.Products.Where(p => CategoryId == CategoryId && p.Price >= minPrice && p.Price <= maxPrice) // filters products by category id and price range
+                                                     .OrderBy(p => p.Price)  // orders products by price from lowest to highest by price ascending
+                                                     .ToList(); // converts the filtered products into a list
+
+
+
+            Console.WriteLine("===== Filtered Products =====");
+
+            foreach (Product p in products) // Displays the filtered and sorted products
+            {
+                Console.WriteLine("--------------------------------");
+                Console.WriteLine("Product ID: " + p.ProductId);
+                Console.WriteLine("Product Name: " + p.ProductName);
+                Console.WriteLine("Price: " + p.Price);
+                Console.WriteLine("Stock Quantity: " + p.StockQuantity);
+                Console.WriteLine("Available: " + p.isAvailable);
+
+
+            }
+
 
 
 
@@ -338,7 +377,9 @@ namespace E_CommerceSystemERD
 
 
 
-        static void Main(string[] args)
+
+
+            static void Main(string[] args)
         {
 
 

@@ -299,7 +299,6 @@ namespace E_CommerceSystemERD
 
         }
 
-
         public static void ProductReview()
         {
 
@@ -466,6 +465,7 @@ namespace E_CommerceSystemERD
 
             if (review != null)
             {
+                // Remove review from the Dbset and save changes to database.
                 context.Reviews.Remove(review);
                 context.SaveChanges();
                 Console.WriteLine("Review deleted successfully");

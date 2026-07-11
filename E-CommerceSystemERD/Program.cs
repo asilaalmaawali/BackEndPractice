@@ -210,11 +210,27 @@ namespace E_CommerceSystemERD
                 return;
             }
 
+
+            Console.Write("Enter shipping address: ");
+            string ShippingAddress = Console.ReadLine();
+
+            Console.WriteLine("Payment methods: 1- CreditCard  2- DebitCard  3- PayPal  4- Cash");  
+            Console.Write("Choose payment method: ");
+            int PayChoice = int.Parse(Console.ReadLine());
+            string[] PayMethods = { "CreditCard", "DebitCard", "PayPal", "Cash" };  // instead using switch or if to choose
+            string PaymentMethod = PayMethods[PayChoice - 1];
+
+
+
+
             Order order = new Order  // if there is User ID then store this database
             {
                 UserId = UserID,
                 OrderDate = DateTime.Now,
-                TotalAmount = 0
+                TotalAmount = 0,
+                Status = "Pending",
+                ShippingAddress = ShippingAddress,
+                PaymentMethod = PaymentMethod
             };
 
             // do this first to get Order ID:
